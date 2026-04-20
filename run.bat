@@ -10,11 +10,12 @@ if "%1"=="" (
 set JAVAFX_PATH=lib/javafx/lib
 
 :: Compile the Java file
-javac --module-path "%JAVAFX_PATH%" --add-modules javafx.controls,javafx.graphics -d bin src/%1.java
+javac --module-path "%JAVAFX_PATH%" --add-modules javafx.controls,javafx.graphics -d bin src/main/*.java src/view/utils/*.java  src/model/*
+
 if %errorlevel% neq 0 (
     echo Compilation failed.
     exit /b 1
 )
 
 :: Run the Java program
-java --module-path "%JAVAFX_PATH%" --add-modules javafx.controls,javafx.graphics -cp bin %1
+java --module-path "%JAVAFX_PATH%" --add-modules javafx.controls,javafx.graphics -cp bin main.%1

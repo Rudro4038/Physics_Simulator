@@ -30,3 +30,5 @@
             }
         ]
     }
+## RUN
+./run PhysicsSim
