@@ -1,7 +1,5 @@
 package com.physicssim.views;
 
-import com.physicssim.components.AppFooter;
-import com.physicssim.components.AppHeader;
 import com.physicssim.components.SimulationCard;
 import com.physicssim.model.SimulationCatalog;
 import com.physicssim.theme.AppTheme;
@@ -18,12 +16,9 @@ public class HomeView extends BorderPane {
     public HomeView() {
         setBackground(AppTheme.pageBackground());
 
-        VBox page = new VBox();
         VBox contentSection = createContentSection();
         VBox.setVgrow(contentSection, Priority.ALWAYS);
-
-        page.getChildren().addAll(new AppHeader(), contentSection, new AppFooter());
-        setCenter(page);
+        setCenter(contentSection);
     }
 
     private VBox createContentSection() {

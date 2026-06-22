@@ -1,0 +1,140 @@
+package com.physicssim.features.pendulum;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polyline;
+import javafx.scene.shape.Rectangle;
+
+public class PendulumCanvas extends Pane {
+
+    private static final int TRAIL_LIMIT = 80;
+
+    private final PendulumModel model;
+    private final Rectangle supportBeam = new Rectangle();
+    private final Line rod = new Line();
+    private final Circle pivot = new Circle(7, Color.web("#1d4ed8"));
+    private final Circle bob = new Circle();
+    private final Polyline trail = new Polyline();
+    private final Group grid = new Group();
+    private final Line horizontalAxis = new Line();
+    private final Line verticalAxis = new Line();
+    private final Label pivotLabel = createOverlayLabel("Pivot");
+    private final Label bobLabel = createOverlayLabel("Bob position");
+    private final Deque<Double> trailPoints = new ArrayDeque<>();
+
+    public PendulumCanvas(PendulumModel model) {
+        this.model = model;
+
+        setPrefSize(700, 420);
+        setMinSize(420, 280);
+        setStyle("-fx-background-color: linear-gradient(to bottom, #f8fbff, #eef6ff);"
+                + "-fx-background-radius: 18;"
+                + "-fx-border-color: #d9e4f2;"
+                + "-fx-border-radius: 18;");
+
+        supportBeam.setArcWidth(14);
+        supportBeam.setArcHeight(14);
+        supportBeam.setFill(Color.web("#6b7280"));
+
+        rod.setStroke(Color.web("#3b82f6"));
+        rod.setStrokeWidth(4);
+
+        bob.setFill(Color.web("#60a5fa"));
+        bob.setStroke(Color.web("#1d4ed8"));
+        bob.setStrokeWidth(3);
+
+        trail.setStroke(Color.web("#22c55e"));
+        trail.setStrokeWidth(3);
+        trail.setOpacity(0.8);
+
+        horizontalAxis.setStroke(Color.web("#9ca3af"));
+        verticalAxis.setStroke(Color.web("#9ca3af"));
+
+        getChildren().addAll(grid, horizontalAxis, verticalAxis, supportBeam, trail, rod, pivot, bob, pivotLabel, bobLabel);
+        widthProperty().addListener((obs, oldVal, newVal) -> render());
+        heightProperty().addListener((obs, oldVal, newVal) -> render());
+        render();
+    }
+
+    public void clearTrail() {
+        trailPoints.clear();
+        trail.getPoints().clear();
+    }
+
+    public void render() {
+        double width = getWidth() <= 0 ? getPrefWidth() : getWidth();
+        double height = getHeight() <= 0 ? getPrefHeight() : getHeight();
+        double pivotX = width / 2.0;
+        double pivotY = 72;
+        double displayLength = model.getDisplayLength();
+        double bobX = pivotX + displayLength * Math.sin(model.getAngle());
+        double bobY = pivotY + displayLength * Math.cos(model.getAngle());
+
+        drawGrid(width, height);
+
+        supportBeam.setX(pivotX - 110);
+        supportBeam.setY(36);
+        supportBeam.setWidth(220);
+        supportBeam.setHeight(14);
+
+        horizontalAxis.setStartX(36);
+        horizontalAxis.setStartY(height / 2.0);
+        horizontalAxis.setEndX(width - 36);
+        horizontalAxis.setEndY(height / 2.0);
+
+        verticalAxis.setStartX(width / 2.0);
+        verticalAxis.setStartY(18);
+        verticalAxis.setEndX(width / 2.0);
+        verticalAxis.setEndY(height - 18);
+
+        rod.setStartX(pivotX);
+        rod.setStartY(pivotY);
+        rod.setEndX(bobX);
+        rod.setEndY(bobY);
+
+        pivot.setCenterX(pivotX);
+        pivot.setCenterY(pivotY);
+
+        bob.setRadius(model.getBobRadius());
+        bob.setCenterX(bobX);
+        bob.setCenterY(bobY);
+
+        trailPoints.addLast(bobX);
+        trailPoints.addLast(bobY);
+        while (trailPoints.size() > TRAIL_LIMIT * 2) {
+            trailPoints.removeFirst();
+            trailPoints.removeFirst();
+        }
+        trail.getPoints().setAll(trailPoints);
+
+        pivotLabel.relocate(pivotX + 12, pivotY - 24);
+        bobLabel.relocate(bobX + 16, bobY - 8);
+    }
+
+    private void drawGrid(double width, double height) {
+        grid.getChildren().clear();
+        for (int x = 30; x < width; x += 30) {
+            Line line = new Line(x, 20, x, height - 20);
+            line.setStroke(Color.web("#e5edf7"));
+            grid.getChildren().add(line);
+        }
+        for (int y = 20; y < height; y += 30) {
+            Line line = new Line(30, y, width - 30, y);
+            line.setStroke(Color.web("#e5edf7"));
+            grid.getChildren().add(line);
+        }
+    }
+
+    private Label createOverlayLabel(String text) {
+        Label label = new Label(text);
+        label.setTextFill(Color.BLACK);
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
+        return label;
+    }
+}

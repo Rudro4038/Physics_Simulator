@@ -1,6 +1,5 @@
 package com.physicssim.app;
 
-import com.physicssim.views.HomeView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,7 +11,7 @@ public class PhysicsSimulatorApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new HomeView(), WINDOW_WIDTH, WINDOW_HEIGHT);
+        Scene scene = new Scene(new AppShell(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
         stage.setTitle("Physics Simulator - R13");
         stage.setScene(scene);
