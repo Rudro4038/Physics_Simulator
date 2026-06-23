@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 public class AppFooter extends HBox {
 
     public AppFooter() {
-        Label footer = new Label("Application V1.0.1  |  Copyright 2024");
+        Label footer = new Label("Application 1.0.1  |  Copyright 2026");
         footer.setFont(AppTheme.footerFont());
         footer.setTextFill(AppTheme.TEXT_MUTED);
 

@@ -20,7 +20,7 @@ import javafx.scene.paint.Color;
 public class AppHeader extends HBox {
 
     public AppHeader(NavigationController navigationController) {
-        Label brand = new Label("PHYSICS SIMULATOR - R13");
+        Label brand = new Label("PHYSICS SIMULATOR");
         brand.setFont(AppTheme.brandFont());
         brand.setTextFill(Color.web("#1b1f24"));
 
