@@ -1,5 +1,6 @@
 package com.physicssim.views;
 
+import com.physicssim.features.mechanics.MechanicsElasticityView;
 import com.physicssim.features.pendulum.PendulumSimulationView;
 import com.physicssim.features.simulations.SimulationFeatureCard;
 import com.physicssim.model.SimulationCatalog;
@@ -71,6 +72,13 @@ public class SimulationsView extends BorderPane {
             hideSectionHeader();
             contentHost.setTop(null);
             contentHost.setCenter(buildSimulationPage(new PendulumSimulationView()));
+            return;
+        }
+
+        if (item.getType() == SimulationType.MECHANICS) {
+            hideSectionHeader();
+            contentHost.setTop(null);
+            contentHost.setCenter(buildSimulationPage(new MechanicsElasticityView()));
             return;
         }
 
