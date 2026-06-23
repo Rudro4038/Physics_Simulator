@@ -1,5 +1,6 @@
 package com.physicssim.features.pendulum;
 
+import com.physicssim.components.PhysicsButton;
 import com.physicssim.theme.AppTheme;
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
@@ -43,8 +44,8 @@ public class PendulumControlPanel extends VBox {
         VBox massBlock = buildSliderBlock("Bob Mass", massValueLabel, massSlider, onMassChanged, "%.2f kg");
         VBox angleBlock = buildSliderBlock("Initial Angle", angleValueLabel, angleSlider, onAngleChanged, "%.1f deg");
 
-        Button playPauseButton = createActionButton("START / PAUSE", Color.web("#2fb15a"), Color.web("#1b7f3c"));
-        Button resetButton = createActionButton("RESET", Color.web("#e38a2e"), Color.web("#b9661f"));
+        Button playPauseButton = PhysicsButton.createStyled("START / PAUSE", Color.web("#2fb15a"), Color.web("#1b7f3c"));
+        Button resetButton = PhysicsButton.createStyled("RESET", Color.web("#e38a2e"), Color.web("#b9661f"));
         playPauseButton.setOnAction(event -> onPlayPause.run());
         resetButton.setOnAction(event -> onReset.run());
 
@@ -106,18 +107,4 @@ public class PendulumControlPanel extends VBox {
         return label;
     }
 
-    private Button createActionButton(String text, Color startColor, Color endColor) {
-        Button button = new Button(text);
-        button.setMaxWidth(Double.MAX_VALUE);
-        button.setFont(AppTheme.cardNumberFont());
-        button.setTextFill(Color.BLACK);
-        button.setBackground(new Background(new BackgroundFill(startColor, new CornerRadii(12), Insets.EMPTY)));
-        button.setPadding(new Insets(12, 18, 12, 18));
-        button.setBorder(new Border(new BorderStroke(
-                endColor,
-                BorderStrokeStyle.SOLID,
-                new CornerRadii(12),
-                new BorderWidths(1))));
-        return button;
-    }
 }

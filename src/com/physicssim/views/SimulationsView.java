@@ -1,6 +1,7 @@
 package com.physicssim.views;
 
 import com.physicssim.features.mechanics.MechanicsElasticityView;
+import com.physicssim.components.PhysicsButton;
 import com.physicssim.features.pendulum.PendulumSimulationView;
 import com.physicssim.features.simulations.SimulationFeatureCard;
 import com.physicssim.model.SimulationCatalog;
@@ -10,7 +11,6 @@ import com.physicssim.theme.AppTheme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
@@ -108,7 +108,7 @@ public class SimulationsView extends BorderPane {
     }
 
     private HBox createBackBar() {
-        Button backButton = new Button("Back to all simulations");
+        PhysicsButton backButton = new PhysicsButton("Back to all simulations" , PhysicsButton.Style.TEXT_ONLY);
         backButton.setFont(AppTheme.cardNumberFont());
         backButton.setTextFill(AppTheme.SURFACE);
         backButton.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.web("#3157d5"), new CornerRadii(12), Insets.EMPTY)));
