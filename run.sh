@@ -21,7 +21,8 @@ javac \
     src/com/physicssim/features/mechanics/*.java \
     src/com/physicssim/features/gravity/*.java \
     src/com/physicssim/features/simulations/*.java \
-    src/com/physicssim/features/electricity/*.java
+    src/com/physicssim/features/electricity/*.java \
+    src/com/physicssim/features/kinematics/*.java
 
 # Copy resources
 cp -R src/resources/* bin/

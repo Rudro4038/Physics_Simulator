@@ -5,5 +5,6 @@ public enum SimulationType {
     MECHANICS,
     GRAVITY,
     ANALYTICS,
-    ELECTRICITY
+    ELECTRICITY,
+    KINEMATICS
 }
