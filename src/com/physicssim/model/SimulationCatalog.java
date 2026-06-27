@@ -11,7 +11,7 @@ public final class SimulationCatalog {
         return List.of(
                 new SimulationItem("(1)", "Pendulum\nDynamics", SimulationType.PENDULUM),
                 new SimulationItem("(2)", "Mechanics &\nElasticity", SimulationType.MECHANICS),
-                new SimulationItem("(3)", "Orbital Gravity", SimulationType.ORBIT),
+                new SimulationItem("(3)", "Orbital Gravity", SimulationType.GRAVITY),
                 new SimulationItem("(4)", "Data Analysis", SimulationType.ANALYTICS),
                 new SimulationItem("(5)", "Electricity\nCurrent electricity", SimulationType.ELECTRICITY));
     }

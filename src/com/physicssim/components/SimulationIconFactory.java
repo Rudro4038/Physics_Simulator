@@ -18,7 +18,7 @@ public final class SimulationIconFactory {
         return switch (type) {
             case PENDULUM -> createPendulumIcon();
             case MECHANICS -> createMechanicsIcon();
-            case ORBIT -> createOrbitIcon();
+            case GRAVITY -> createOrbitIcon();
             case ANALYTICS -> createChartIcon();
             case ELECTRICITY -> createElectricityIcon();
         };

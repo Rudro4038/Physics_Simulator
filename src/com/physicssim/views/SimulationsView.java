@@ -4,6 +4,7 @@ import com.physicssim.features.mechanics.MechanicsElasticityView;
 import com.physicssim.components.PhysicsButton;
 import com.physicssim.features.pendulum.PendulumSimulationView;
 import com.physicssim.features.electricity.CurrentElectricityView;
+import com.physicssim.features.gravity.GravityView;
 import com.physicssim.features.simulations.SimulationFeatureCard;
 import com.physicssim.model.SimulationCatalog;
 import com.physicssim.model.SimulationItem;
@@ -87,6 +88,13 @@ public class SimulationsView extends BorderPane {
             hideSectionHeader();
             contentHost.setTop(null);
             contentHost.setCenter(buildSimulationPage(new CurrentElectricityView()));
+            return;
+        }
+
+        if (item.getType() == SimulationType.GRAVITY) {
+            hideSectionHeader();
+            contentHost.setTop(null);
+            contentHost.setCenter(buildSimulationPage(new GravityView()));
             return;
         }
 
