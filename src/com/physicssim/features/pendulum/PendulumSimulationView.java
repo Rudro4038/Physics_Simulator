@@ -24,8 +24,14 @@ public class PendulumSimulationView extends BorderPane {
     private final PendulumModel model = new PendulumModel(2.0, 9.81, 1.5, Math.toRadians(DEFAULT_ANGLE_DEGREES));
     private final PendulumCanvas canvas = new PendulumCanvas(model);
     private final PendulumControlPanel controlPanel;
-    private final PendulumChartCard angleChart = new PendulumChartCard("Angular Displacement vs. Time");
-    private final PendulumChartCard velocityChart = new PendulumChartCard("Velocity vs. Time");
+    private final PendulumChartCard angleChart = new PendulumChartCard(
+            "Angular Displacement vs. Time",
+            "Angle (deg)",
+            "Time");
+    private final PendulumChartCard velocityChart = new PendulumChartCard(
+            "Velocity vs. Time",
+            "Speed (m/s)",
+            "Time");
     private final Label periodValueLabel = metricValueLabel();
     private final Label maxVelocityValueLabel = metricValueLabel();
     private final Label currentVelocityValueLabel = metricValueLabel();
@@ -53,34 +59,37 @@ public class PendulumSimulationView extends BorderPane {
                 this::updateLengthFromSlider,
                 this::updateMassFromSlider);
 
-        VBox textBlock = new VBox(10, title, subtitle);
+        title.setStyle("-fx-font-size: 41px; -fx-font-weight: 800;");
+        subtitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 500;");
+
+        VBox textBlock = new VBox(8, title, subtitle);
         textBlock.setAlignment(Pos.TOP_LEFT);
 
         BorderPane simulationBoard = new BorderPane(canvas);
-        simulationBoard.setPadding(new Insets(18));
+        simulationBoard.setPadding(new Insets(15));
         simulationBoard.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(18), Insets.EMPTY)));
         simulationBoard.setStyle("-fx-border-color: #d9e2ee;"
                 + "-fx-border-radius: 18;"
                 + "-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.08), 18, 0.18, 0, 6);");
 
-        HBox topRow = new HBox(20, controlPanel, simulationBoard);
+        HBox topRow = new HBox(17, controlPanel, simulationBoard);
         HBox.setHgrow(simulationBoard, Priority.ALWAYS);
         topRow.setAlignment(Pos.TOP_LEFT);
 
         VBox metricsCard = buildMetricsCard();
-        HBox bottomRow = new HBox(20, metricsCard, angleChart, velocityChart);
+        HBox bottomRow = new HBox(17, metricsCard, angleChart, velocityChart);
         HBox.setHgrow(angleChart, Priority.ALWAYS);
         HBox.setHgrow(velocityChart, Priority.ALWAYS);
 
-        VBox content = new VBox(24, textBlock, topRow, bottomRow);
-        content.setPadding(new Insets(30));
+        VBox content = new VBox(20, textBlock, topRow, bottomRow);
+        content.setPadding(new Insets(25));
         content.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(24), Insets.EMPTY)));
         content.setStyle("-fx-border-color: #dde5ef;"
                 + "-fx-border-radius: 24;"
                 + "-fx-effect: dropshadow(gaussian, rgba(16, 24, 40, 0.08), 24, 0.20, 0, 8);");
-        content.setMaxWidth(1180);
+        content.setMaxWidth(1000);
 
-        setPadding(new Insets(8, 0, 14, 0));
+        setPadding(new Insets(7, 0, 12, 0));
         setCenter(content);
 
         resetTelemetry();
@@ -91,16 +100,16 @@ public class PendulumSimulationView extends BorderPane {
     private VBox buildMetricsCard() {
         Label title = new Label("Live Metrics");
         title.setTextFill(Color.BLACK);
-        title.setStyle("-fx-font-size: 16px; -fx-font-weight: 700;");
+        title.setStyle("-fx-font-size: 14px; -fx-font-weight: 700;");
 
-        VBox card = new VBox(12,
+        VBox card = new VBox(10,
                 title,
                 metricRow("Period", periodValueLabel),
                 metricRow("Max Velocity", maxVelocityValueLabel),
                 metricRow("Current Velocity", currentVelocityValueLabel),
                 metricRow("Position", positionValueLabel));
-        card.setPadding(new Insets(18));
-        card.setPrefWidth(240);
+        card.setPadding(new Insets(15));
+        card.setPrefWidth(205);
         card.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(18), Insets.EMPTY)));
         card.setStyle("-fx-border-color: #d9e2ee;"
                 + "-fx-border-radius: 18;"
@@ -111,8 +120,8 @@ public class PendulumSimulationView extends BorderPane {
     private HBox metricRow(String name, Label valueLabel) {
         Label nameLabel = new Label(name);
         nameLabel.setTextFill(Color.BLACK);
-        nameLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 600;");
-        HBox row = new HBox(12, nameLabel, valueLabel);
+        nameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
+        HBox row = new HBox(10, nameLabel, valueLabel);
         row.setAlignment(Pos.CENTER_LEFT);
         return row;
     }
@@ -120,7 +129,7 @@ public class PendulumSimulationView extends BorderPane {
     private Label metricValueLabel() {
         Label label = new Label();
         label.setTextFill(Color.BLACK);
-        label.setStyle("-fx-font-size: 14px; -fx-font-weight: 700;");
+        label.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
         return label;
     }
 

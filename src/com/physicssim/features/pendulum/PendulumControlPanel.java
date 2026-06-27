@@ -48,13 +48,17 @@ public class PendulumControlPanel extends VBox {
         Button resetButton = PhysicsButton.createStyled("RESET", Color.web("#e38a2e"), Color.web("#b9661f"));
         playPauseButton.setOnAction(event -> onPlayPause.run());
         resetButton.setOnAction(event -> onReset.run());
+        playPauseButton.setStyle(playPauseButton.getStyle() + "-fx-font-size: 14px;");
+        resetButton.setStyle(resetButton.getStyle() + "-fx-font-size: 14px;");
+        playPauseButton.setPrefHeight(44);
+        resetButton.setPrefHeight(40);
 
         getChildren().addAll(title, gravityBlock, lengthBlock, massBlock, angleBlock, playPauseButton, resetButton);
-        setSpacing(18);
+        setSpacing(15);
         setAlignment(Pos.TOP_LEFT);
-        setPadding(new Insets(22));
-        setPrefWidth(280);
-        setMinWidth(280);
+        setPadding(new Insets(18));
+        setPrefWidth(238);
+        setMinWidth(238);
         setBackground(new Background(new BackgroundFill(Color.web("#ffffff"), new CornerRadii(18), Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(
                 Color.web("#d9e2ee"),
@@ -75,34 +79,48 @@ public class PendulumControlPanel extends VBox {
             Consumer<Double> onChanged,
             String format) {
         Label nameLabel = sectionLabel(name);
-        valueLabel.setFont(AppTheme.cardTitleFont());
-        valueLabel.setTextFill(Color.BLACK);
+        nameLabel.setMinHeight(18);
+        nameLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: black;");
+
+        valueLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #1d4ed8;");
+        valueLabel.setMinWidth(92);
+        valueLabel.setMinHeight(18);
+        valueLabel.setAlignment(Pos.CENTER_LEFT);
+        valueLabel.setVisible(true);
+        valueLabel.setManaged(true);
 
         slider.setMajorTickUnit((slider.getMax() - slider.getMin()) / 4.0);
-        slider.setMinorTickCount(3);
+        slider.setMinorTickCount(2);
         slider.setShowTickMarks(false);
         slider.setShowTickLabels(false);
+        slider.setBlockIncrement((slider.getMax() - slider.getMin()) / 20.0);
+        slider.setStyle("-fx-control-inner-background: white;");
         slider.valueProperty().addListener((obs, oldValue, newValue) -> {
             valueLabel.setText(String.format(format, newValue.doubleValue()));
             onChanged.accept(newValue.doubleValue());
         });
         valueLabel.setText(String.format(format, slider.getValue()));
 
-        VBox block = new VBox(8, nameLabel, valueLabel, slider);
+        Label helperLabel = new Label("Adjust to update the simulation instantly");
+        helperLabel.setTextFill(Color.web("#556270"));
+        helperLabel.setStyle("-fx-font-size: 10px; -fx-font-weight: 600;");
+        helperLabel.setMinHeight(14);
+
+        VBox block = new VBox(6, nameLabel, valueLabel, slider, helperLabel);
         block.setAlignment(Pos.TOP_LEFT);
         return block;
     }
 
     private Label sectionTitle(String text) {
         Label label = new Label(text);
-        label.setFont(AppTheme.cardTitleFont());
+        label.setStyle("-fx-font-size: 16px; -fx-font-weight: 700;");
         label.setTextFill(Color.BLACK);
         return label;
     }
 
     private Label sectionLabel(String text) {
         Label label = new Label(text);
-        label.setFont(AppTheme.cardNumberFont());
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: black;");
         label.setTextFill(Color.BLACK);
         return label;
     }
