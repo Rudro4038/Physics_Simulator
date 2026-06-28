@@ -6,5 +6,6 @@ public enum SimulationType {
     GRAVITY,
     ANALYTICS,
     ELECTRICITY,
-    KINEMATICS
+    KINEMATICS,
+    ATOMIC_NUCLEAR
 }
