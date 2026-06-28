@@ -19,11 +19,11 @@ public final class SimulationIconFactory {
             case PENDULUM -> createPendulumIcon();
             case WORK_POWER_ENERGY -> createWorkPowerEnergyIcon();
             case KINEMATICS -> createKinematicsIcon();
-            case ORBIT -> createOrbitIcon();
-            case ANALYTICS -> createChartIcon();
+            case GRAVITY -> createOrbitIcon();
+            case VECTOR -> createVectorIcon();
             case ELECTRICITY -> createElectricityIcon();
             case ATOMIC_NUCLEAR -> createAtomicNuclearIcon();
-        };
+        };  
     }
 
     private static StackPane createPendulumIcon() {
@@ -91,33 +91,44 @@ public final class SimulationIconFactory {
         return new StackPane(new Group(ring, planet, moon));
     }
 
-    private static StackPane createChartIcon() {
-        Line yAxis = new Line(28, 20, 28, 78);
+    private static StackPane createVectorIcon() {
+
+        // Axes
+        Line yAxis = new Line(28, 18, 28, 82);
         yAxis.setStroke(AppTheme.ICON_DARK);
         yAxis.setStrokeWidth(4);
 
-        Line xAxis = new Line(28, 78, 98, 78);
+        Line xAxis = new Line(28, 82, 94, 82);
         xAxis.setStroke(AppTheme.ICON_DARK);
         xAxis.setStrokeWidth(4);
 
-        Line trend = new Line(38, 62, 52, 44);
-        trend.setStroke(AppTheme.ICON_DARK);
-        trend.setStrokeWidth(4);
+        // Vector shaft
+        Line vector = new Line(28, 82, 74, 34);
+        vector.setStroke(AppTheme.ICON_DARK);
+        vector.setStrokeWidth(4);
 
-        Line trend2 = new Line(52, 44, 66, 58);
-        trend2.setStroke(AppTheme.ICON_DARK);
-        trend2.setStrokeWidth(4);
+        // Arrow head
+        Line arrowLeft = new Line(74, 34, 64, 38);
+        arrowLeft.setStroke(AppTheme.ICON_DARK);
+        arrowLeft.setStrokeWidth(4);
 
-        Line trend3 = new Line(66, 58, 82, 32);
-        trend3.setStroke(AppTheme.ICON_DARK);
-        trend3.setStrokeWidth(4);
+        Line arrowRight = new Line(74, 34, 70, 44);
+        arrowRight.setStroke(AppTheme.ICON_DARK);
+        arrowRight.setStrokeWidth(4);
 
-        Circle p1 = new Circle(38, 62, 4.5, AppTheme.ICON_DARK);
-        Circle p2 = new Circle(52, 44, 4.5, AppTheme.ICON_DARK);
-        Circle p3 = new Circle(66, 58, 4.5, AppTheme.ICON_DARK);
-        Circle p4 = new Circle(82, 32, 4.5, AppTheme.ICON_DARK);
+        // Origin point
+        Circle origin = new Circle(28, 82, 5, AppTheme.ICON_DARK);
 
-        return new StackPane(new Group(yAxis, xAxis, trend, trend2, trend3, p1, p2, p3, p4));
+        return new StackPane(
+                new Group(
+                        yAxis,
+                        xAxis,
+                        vector,
+                        arrowLeft,
+                        arrowRight,
+                        origin
+                )
+        );
     }
 
     private static StackPane createElectricityIcon() {

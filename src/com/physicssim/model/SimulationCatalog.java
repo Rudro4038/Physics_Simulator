@@ -12,9 +12,9 @@ public final class SimulationCatalog {
                 new SimulationItem("(1)", "Pendulum\nDynamics", SimulationType.PENDULUM),
                 new SimulationItem("(2)", "Work, Power &\nEnergy", SimulationType.WORK_POWER_ENERGY),
                 new SimulationItem("(3)", "Kinematics", SimulationType.KINEMATICS),
-                new SimulationItem("(4)", "Orbital Gravity", SimulationType.ORBIT),
-                new SimulationItem("(5)", "Data Analysis", SimulationType.ANALYTICS),
+                new SimulationItem("(4)", "Orbital Gravity", SimulationType.GRAVITY),
                 new SimulationItem("(6)", "Electricity\nCurrent electricity", SimulationType.ELECTRICITY),
-                new SimulationItem("(7)", "Atomic &\nNuclear Physics", SimulationType.ATOMIC_NUCLEAR));
+                new SimulationItem("(7)", "Atomic &\nNuclear Physics", SimulationType.ATOMIC_NUCLEAR),
+                new SimulationItem("(4)", "Vector\nFundamentals", SimulationType.VECTOR));
     }
 }

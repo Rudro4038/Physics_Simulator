@@ -1,7 +1,5 @@
 package com.physicssim.views;
 
-import com.physicssim.components.SimulationCard;
-import com.physicssim.model.SimulationCatalog;
 import com.physicssim.theme.AppTheme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,10 +30,6 @@ public class HomeView extends BorderPane {
 
         HBox cardsRow = new HBox(24);
         cardsRow.setAlignment(Pos.CENTER);
-        // SimulationCatalog.homeItems()
-        //         .stream()
-        //         .map(SimulationCard::new)
-        //         .forEach(cardsRow.getChildren()::add);
 
         VBox content = new VBox(36, title, subtitle, cardsRow);
         content.setAlignment(Pos.CENTER);

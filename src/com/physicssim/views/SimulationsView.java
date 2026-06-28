@@ -128,11 +128,14 @@ public class SimulationsView extends BorderPane {
             case ELECTRICITY -> contentHost.setCenter(
                     buildSimulationPage(new CurrentElectricityView()));
 
-            case ORBIT -> contentHost.setCenter(
+            case GRAVITY -> contentHost.setCenter(
                     buildSimulationPage(new GravityView()));
 
             case ATOMIC_NUCLEAR -> contentHost.setCenter(
                     buildSimulationPage(new AtomicNuclearView()));
+
+            case VECTOR -> contentHost.setCenter(
+                    buildSimulationPage(new VectorAdditionView()));
 
             default -> {
                 showSectionHeader();
