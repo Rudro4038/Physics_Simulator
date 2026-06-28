@@ -32,10 +32,10 @@ public class HomeView extends BorderPane {
 
         HBox cardsRow = new HBox(24);
         cardsRow.setAlignment(Pos.CENTER);
-        SimulationCatalog.homeItems()
-                .stream()
-                .map(SimulationCard::new)
-                .forEach(cardsRow.getChildren()::add);
+        // SimulationCatalog.homeItems()
+        //         .stream()
+        //         .map(SimulationCard::new)
+        //         .forEach(cardsRow.getChildren()::add);
 
         VBox content = new VBox(36, title, subtitle, cardsRow);
         content.setAlignment(Pos.CENTER);

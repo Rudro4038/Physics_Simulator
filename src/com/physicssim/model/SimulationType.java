@@ -2,11 +2,10 @@ package com.physicssim.model;
 
 public enum SimulationType {
     PENDULUM,
-    MECHANICS,
-    GRAVITY,
+    WORK_POWER_ENERGY,
+    KINEMATICS,
+    ORBIT,
     ANALYTICS,
     ELECTRICITY,
-    KINEMATICS,
-    ATOMIC_NUCLEAR,
-    VECTOR
+    ATOMIC_NUCLEAR
 }

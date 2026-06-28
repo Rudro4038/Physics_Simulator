@@ -12,6 +12,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class SimulationFeatureCard extends VBox {
 
@@ -23,10 +25,11 @@ public class SimulationFeatureCard extends VBox {
         StackPane icon = SimulationIconFactory.create(item.getType());
 
         Label title = new Label(item.getTitle());
-        title.setFont(AppTheme.cardTitleFont());
-        title.setTextFill(AppTheme.TEXT_PRIMARY);
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        title.setTextFill(javafx.scene.paint.Color.web("#1a1a1a"));
         title.setWrapText(true);
         title.setAlignment(Pos.CENTER);
+        title.setStyle("-fx-font-weight: 900; -fx-font-size: 20px; -fx-text-fill: #1a1a1a; -fx-opacity: 1.0;");
 
         Label action = new Label("Open module");
         action.setFont(AppTheme.cardNumberFont());

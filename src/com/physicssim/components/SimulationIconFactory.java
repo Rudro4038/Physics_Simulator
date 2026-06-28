@@ -17,13 +17,12 @@ public final class SimulationIconFactory {
     public static StackPane create(SimulationType type) {
         return switch (type) {
             case PENDULUM -> createPendulumIcon();
-            case MECHANICS -> createMechanicsIcon();
-            case GRAVITY -> createOrbitIcon();
+            case WORK_POWER_ENERGY -> createWorkPowerEnergyIcon();
             case KINEMATICS -> createKinematicsIcon();
+            case ORBIT -> createOrbitIcon();
             case ANALYTICS -> createChartIcon();
             case ELECTRICITY -> createElectricityIcon();
             case ATOMIC_NUCLEAR -> createAtomicNuclearIcon();
-            default -> createPendulumIcon();
         };
     }
 
@@ -219,5 +218,42 @@ public final class SimulationIconFactory {
         Circle electron3 = new Circle(30, 48, 5, Color.web("#3b82f6"));
 
         return new StackPane(new Group(orbit1, orbit2, orbit3, nucleus, electron1, electron2, electron3));
+    }
+
+    private static StackPane createWorkPowerEnergyIcon() {
+        // Box + Force/Displacement arrows
+        javafx.scene.shape.Rectangle box = new javafx.scene.shape.Rectangle(40, 38, 40, 24);
+        box.setFill(Color.web("#00ff91"));
+        box.setStroke(Color.web("#4f46e5"));
+        box.setStrokeWidth(2);
+
+        // Displacement arrow (blue)
+        Line dispLine = new Line(85, 50, 105, 50);
+        dispLine.setStroke(Color.web("#3b82f6"));
+        dispLine.setStrokeWidth(3);
+        Line dispArrow1 = new Line(105, 50, 97, 44);
+        dispArrow1.setStroke(Color.web("#3b82f6"));
+        dispArrow1.setStrokeWidth(3);
+        Line dispArrow2 = new Line(105, 50, 97, 56);
+        dispArrow2.setStroke(Color.web("#3b82f6"));
+        dispArrow2.setStrokeWidth(3);
+
+        // Force arrow (red, at 45deg)
+        Line forceLine = new Line(60, 50, 78, 32);
+        forceLine.setStroke(Color.web("#ef4444"));
+        forceLine.setStrokeWidth(3);
+        Line forceArrow1 = new Line(78, 32, 70, 30);
+        forceArrow1.setStroke(Color.web("#ef4444"));
+        forceArrow1.setStrokeWidth(3);
+        Line forceArrow2 = new Line(78, 32, 76, 38);
+        forceArrow2.setStroke(Color.web("#ef4444"));
+        forceArrow2.setStrokeWidth(3);
+
+        // Ground line
+        Line ground = new Line(18, 70, 102, 70);
+        ground.setStroke(Color.web("#2b3440"));
+        ground.setStrokeWidth(3);
+
+        return new StackPane(new Group(ground, box, dispLine, dispArrow1, dispArrow2, forceLine, forceArrow1, forceArrow2));
     }
 }
