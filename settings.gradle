@@ -1,0 +1,9 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral() // Forces Gradle to scan the standard Maven repository for plugins
+    }
+}
+
+rootProject.name = 'Physics_Simulator'
+include('app')

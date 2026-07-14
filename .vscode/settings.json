@@ -4,5 +4,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "lib/javafx/lib/*.jar"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
