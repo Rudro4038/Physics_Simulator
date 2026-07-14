@@ -20,7 +20,7 @@ public class AppHeader extends HBox {
 
     public AppHeader(NavigationController navigationController) {
 
-        Label brand = new Label("Physica");
+        Label brand = new Label("Physix");
         brand.setFont(AppTheme.brandFont());
         brand.setTextFill(Color.web("#1b1f24"));
 

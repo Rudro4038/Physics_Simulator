@@ -19,7 +19,7 @@ public class PhysicsSimulatorApp extends Application {
                 .toExternalForm()
         );
 
-        stage.setTitle("Physica");
+        stage.setTitle("Physix");
         stage.setScene(scene);
         stage.setMinWidth(960);
         stage.setMinHeight(620);
