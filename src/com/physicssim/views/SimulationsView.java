@@ -11,7 +11,6 @@ import com.physicssim.features.simulations.SimulationFeatureCard;
 import com.physicssim.features.vector.VectorAdditionView;
 import com.physicssim.model.SimulationCatalog;
 import com.physicssim.model.SimulationItem;
-import com.physicssim.model.SimulationType;
 import com.physicssim.theme.AppTheme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

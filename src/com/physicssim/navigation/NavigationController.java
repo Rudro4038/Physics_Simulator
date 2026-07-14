@@ -10,8 +10,6 @@ import java.util.EnumMap;
 import java.util.Map;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 public class NavigationController {
 
