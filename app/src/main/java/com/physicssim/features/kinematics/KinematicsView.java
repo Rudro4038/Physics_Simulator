@@ -34,11 +34,11 @@ public class KinematicsView extends BorderPane {
     private Node buildHeader() {
         Label title = new Label("Kinematics (Motion)");
         title.setFont(AppTheme.heroFont());
-        title.setTextFill(AppTheme.TEXT_PRIMARY);
+        title.setStyle("-fx-font-size: 41px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
 
         Label subtitle = new Label("One kinematics module with five subsections. Pick a topic below.");
         subtitle.setFont(AppTheme.subtitleFont());
-        subtitle.setTextFill(AppTheme.TEXT_SECONDARY);
+        subtitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 500; -fx-text-fill: #1f2937;");
         subtitle.setWrapText(true);
 
         FlowPane nav = new FlowPane(8, 8);

@@ -356,14 +356,13 @@ public class SpeedVelocityView extends BorderPane {
     private VBox statBlock(String name, Label value, String desc) {
         Label label = new Label(name);
         label.setFont(AppTheme.cardTitleFont());
-        label.setTextFill(AppTheme.TEXT_PRIMARY);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
 
         value.setFont(javafx.scene.text.Font.font(24));
-        value.setStyle("-fx-font-weight: 800;");
+        value.setStyle("-fx-font-weight: 800; -fx-text-fill: #1e293b;");
 
         Label description = new Label(desc);
-        description.setTextFill(AppTheme.TEXT_SECONDARY);
-        description.setStyle("-fx-font-size: 12px;");
+        description.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
         description.setWrapText(true);
 
         return new VBox(6, label, value, description);
