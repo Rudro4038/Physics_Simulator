@@ -21,12 +21,20 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 
 public class SimulationsView extends BorderPane {
+
+    private static final int TILE_WIDTH = 220;
+    private static final int TILE_HEIGHT = 270;
+    private static final int TILE_GAP = 24;
+    private static final int GRID_COLUMNS = 3;
 
     private final BorderPane contentHost = new BorderPane();
     private final ScrollPane rootScroll = new ScrollPane();
@@ -57,23 +65,30 @@ public class SimulationsView extends BorderPane {
         VBox.setVgrow(contentHost, Priority.ALWAYS);
 
         layout.getChildren().setAll(contentHost);
-        layout.setPadding(new Insets(24, 20, 24, 20));
+        layout.setPadding(new Insets(24));
         layout.setFillWidth(true);
         VBox.setVgrow(contentHost, Priority.ALWAYS);
     }
 
     /**
      * Responsive catalog that automatically wraps cards and keeps them centered.
+     * Fixed to a 2-column grid layout.
      */
     private void showCatalog() {
 
-        FlowPane cards = new FlowPane();
-        cards.setAlignment(Pos.TOP_CENTER);
-        cards.setHgap(24);
-        cards.setVgap(24);
-        cards.setPadding(new Insets(12));
+        TilePane cards = new TilePane();
+        cards.setAlignment(Pos.CENTER);
+        cards.setHgap(TILE_GAP);
+        cards.setVgap(TILE_GAP);
+        cards.setPadding(new Insets(24));
+        cards.setPrefTileWidth(TILE_WIDTH);
+        cards.setPrefTileHeight(TILE_HEIGHT);
+        cards.setTileAlignment(Pos.CENTER);
+        cards.setPrefColumns(GRID_COLUMNS);
 
-        cards.prefWrapLengthProperty().bind(layout.widthProperty().subtract(56));
+        // Lock the max width so the grid always wraps at exactly 2 columns,
+        // regardless of how wide the window is.
+        cards.setMaxWidth(TILE_WIDTH * GRID_COLUMNS + TILE_GAP * (GRID_COLUMNS - 1) + 48);
 
         for (SimulationItem item : SimulationCatalog.homeItems()) {
             cards.getChildren().add(
@@ -81,7 +96,8 @@ public class SimulationsView extends BorderPane {
             );
         }
 
-        contentHost.setCenter(cards);
+        BorderPane wrapper = new BorderPane(cards);
+        contentHost.setCenter(wrapper);
     }
 
     private void openSimulation(SimulationItem item) {
@@ -158,10 +174,19 @@ public class SimulationsView extends BorderPane {
     private HBox createBackBar() {
 
         PhysicsButton backButton =
-                new PhysicsButton("Back to all simulations",
+                new PhysicsButton("",
                         PhysicsButton.Style.TEXT_ONLY);
 
-        backButton.setFont(AppTheme.cardNumberFont());
+        SVGPath leftArrow = new SVGPath();
+        leftArrow.setContent("M 16 4 L 6 12 L 16 20");
+        leftArrow.setStroke(javafx.scene.paint.Color.WHITE);
+        leftArrow.setStrokeWidth(3);
+        leftArrow.setFill(null);
+        leftArrow.setStrokeLineCap(StrokeLineCap.ROUND);
+        leftArrow.setStrokeLineJoin(StrokeLineJoin.ROUND);
+
+        backButton.setGraphic(leftArrow);
+        backButton.setFont(javafx.scene.text.Font.font("Arial", 12));
         backButton.setTextFill(AppTheme.SURFACE);
         backButton.setBackground(
                 new Background(
@@ -170,7 +195,9 @@ public class SimulationsView extends BorderPane {
                                 new CornerRadii(12),
                                 Insets.EMPTY)));
 
-        backButton.setPadding(new Insets(10, 16, 10, 16));
+        backButton.setPadding(new Insets(8, 14, 8, 14));
+        backButton.setMinWidth(40);
+        backButton.setPrefWidth(40);
         backButton.setStyle("-fx-font-smoothing-type: lcd;");
 
         backButton.setOnAction(event -> {

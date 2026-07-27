@@ -78,9 +78,8 @@ public class PendulumSimulationView extends BorderPane {
         HBox.setHgrow(simulationBoard, Priority.ALWAYS);
         topRow.setAlignment(Pos.TOP_LEFT);
 
-        HBox bottomRow = new HBox(17, angleChart, velocityChart);
-        HBox.setHgrow(angleChart, Priority.ALWAYS);
-        HBox.setHgrow(velocityChart, Priority.ALWAYS);
+        HBox bottomRow = new HBox(24, angleChart, velocityChart);
+        bottomRow.setAlignment(Pos.CENTER);
 
         VBox content = new VBox(20, buildHeaderCard(textBlock), topRow, bottomRow);
         content.setPadding(new Insets(25));
@@ -88,9 +87,9 @@ public class PendulumSimulationView extends BorderPane {
         content.setStyle("-fx-border-color: #dde5ef;"
                 + "-fx-border-radius: 24;"
                 + "-fx-effect: dropshadow(gaussian, rgba(16, 24, 40, 0.08), 24, 0.20, 0, 8);");
-        content.setMaxWidth(1000);
+        content.setMaxWidth(1200);
 
-        setPadding(new Insets(7, 0, 12, 0));
+        setPadding(new Insets(20, 24, 24, 24));
         setCenter(content);
 
         resetTelemetry();
@@ -128,26 +127,37 @@ public class PendulumSimulationView extends BorderPane {
 
     private VBox buildMetricsCard() {
         Label title = new Label("Live Metrics");
-        title.setTextFill(Color.web("#0f172a"));
+        title.setTextFill(Color.WHITE);
         title.setStyle("-fx-font-size: 14px; -fx-font-weight: 800;");
 
         Label subtitle = new Label("At-a-glance motion telemetry");
-        subtitle.setTextFill(Color.web("#475569"));
+        subtitle.setTextFill(Color.web("#94a3b8"));
         subtitle.setStyle("-fx-font-size: 11px; -fx-font-weight: 600;");
 
-        periodValueLabel.setTextFill(Color.web("#0f172a"));
-        maxVelocityValueLabel.setTextFill(Color.web("#0f172a"));
-        currentVelocityValueLabel.setTextFill(Color.web("#0f172a"));
-        positionValueLabel.setTextFill(Color.web("#0f172a"));
+        periodValueLabel.setTextFill(Color.web("#e0e7ff"));
+        maxVelocityValueLabel.setTextFill(Color.web("#e0e7ff"));
+        currentVelocityValueLabel.setTextFill(Color.web("#e0e7ff"));
+        positionValueLabel.setTextFill(Color.web("#e0e7ff"));
+
+        positionValueLabel.setWrapText(true);
+
+        VBox positionRow = new VBox(2,
+                new Label("Position") {{
+                    setTextFill(Color.web("#cbd5e1"));
+                    setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
+                }},
+                positionValueLabel);
+        positionRow.setAlignment(Pos.TOP_LEFT);
 
         VBox card = new VBox(12,
                 new VBox(2, title, subtitle),
                 metricRow("Period", periodValueLabel),
                 metricRow("Max Velocity", maxVelocityValueLabel),
                 metricRow("Current Velocity", currentVelocityValueLabel),
-                metricRow("Position", positionValueLabel));
+                positionRow);
         card.setPadding(new Insets(15));
-        card.setPrefWidth(350);
+        card.setPrefWidth(300);
+        card.setMaxWidth(320);
         card.setBackground(new Background(new BackgroundFill(Color.web("#0f2b4f"), new CornerRadii(18), Insets.EMPTY)));
         card.setStyle("-fx-border-color: #d9e2ee;"
                 + "-fx-border-radius: 18;"
@@ -157,7 +167,7 @@ public class PendulumSimulationView extends BorderPane {
 
     private HBox metricRow(String name, Label valueLabel) {
         Label nameLabel = new Label(name);
-        nameLabel.setTextFill(Color.BLACK);
+        nameLabel.setTextFill(Color.web("#cbd5e1"));
         nameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
         HBox row = new HBox(10, nameLabel, valueLabel);
         row.setAlignment(Pos.CENTER_LEFT);
@@ -166,8 +176,8 @@ public class PendulumSimulationView extends BorderPane {
 
     private Label metricValueLabel() {
         Label label = new Label();
-        label.setTextFill(Color.BLACK);
-        label.setStyle("-fx-font-size: 8px; -fx-font-weight: 700;");
+        label.setTextFill(Color.web("#e0e7ff"));
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
         return label;
     }
 
@@ -197,6 +207,7 @@ public class PendulumSimulationView extends BorderPane {
 
     private void toggleRunning() {
         running = !running;
+        controlPanel.setPlayPauseButton(running);
         updateReadings();
     }
 
@@ -205,8 +216,9 @@ public class PendulumSimulationView extends BorderPane {
         canvas.clearTrail();
         canvas.render();
         resetTelemetry();
-        updateReadings();
         running = false;
+        controlPanel.setPlayPauseButton(false);
+        updateReadings();
     }
 
     private void updateAngleFromSlider(double angleDegrees) {

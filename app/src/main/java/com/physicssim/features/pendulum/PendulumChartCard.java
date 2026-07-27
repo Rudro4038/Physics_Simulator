@@ -19,8 +19,8 @@ import javafx.scene.text.FontWeight;
 
 public class PendulumChartCard extends VBox {
 
-    private static final double CARD_WIDTH = 255;
-    private static final double CARD_HEIGHT = 179;
+    private static final double CARD_WIDTH = 420;
+    private static final double CARD_HEIGHT = 200;
     private static final double PLOT_LEFT = 44;
     private static final double PLOT_TOP = 14;
     private static final double PLOT_RIGHT = 17;
@@ -41,6 +41,8 @@ public class PendulumChartCard extends VBox {
         getChildren().addAll(titleLabel, canvas);
         setSpacing(10);
         setPadding(new Insets(15));
+        setPrefWidth(CARD_WIDTH + 30);
+        setMaxWidth(CARD_WIDTH + 30);
         setBackground(new Background(new BackgroundFill(Color.web("#f8fbff"), new CornerRadii(18), Insets.EMPTY)));
         setBorder(new Border(new BorderStroke(
                 Color.web("#d9e2ee"),
