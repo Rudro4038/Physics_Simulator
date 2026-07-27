@@ -17,9 +17,9 @@ public class NBodyView extends BorderPane {
     private AnimationTimer animationTimer;
     private long previousTime = 0;
 
-    // Canvas dimensions
-    private static final double CANVAS_WIDTH = 1100;
-    private static final double CANVAS_HEIGHT = 700;
+    // Canvas dimensions (kept moderate so controls stay in view beside the simulation)
+    private static final double CANVAS_WIDTH = 760;
+    private static final double CANVAS_HEIGHT = 440;
 
     // Circle arrangement parameter
     private double currentRadius = 150.0;
@@ -48,16 +48,20 @@ public class NBodyView extends BorderPane {
      */
     private void setupLayout() {
         setStyle("-fx-background-color: #0a0a0a;");
+        setPadding(new javafx.geometry.Insets(8, 12, 8, 12));
 
-        // Canvas in center
-        setCenter(canvas);
+        javafx.scene.layout.VBox canvasColumn = new javafx.scene.layout.VBox(canvas);
+        canvasColumn.setAlignment(javafx.geometry.Pos.TOP_CENTER);
+        canvasColumn.setStyle("-fx-background-color: #0a0a0a;");
 
-        // Control panel in right with scrolling support
+        setCenter(canvasColumn);
+
         ScrollPane scrollPane = new ScrollPane(controls);
         scrollPane.setFitToWidth(true);
-        scrollPane.setPrefWidth(250);
-        scrollPane.setStyle("-fx-background-color: #1a1a1a;");
-        setRight(scrollPane);
+        scrollPane.setPrefWidth(300);
+        scrollPane.setMinWidth(280);
+        scrollPane.setStyle("-fx-background-color: #1a1a1a; -fx-background: #1a1a1a;");
+        setLeft(scrollPane);
     }
 
     /**

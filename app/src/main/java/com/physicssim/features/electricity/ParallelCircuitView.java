@@ -39,12 +39,11 @@ public class ParallelCircuitView extends BorderPane {
     };
 
     public ParallelCircuitView() {
-        setPadding(new Insets(12));
+        setPadding(new Insets(18));
         setStyle("-fx-background-color: transparent;");
 
         VBox controls = buildControls();
-        setTop(controls);
-        setCenter(canvas);
+        ElectricitySimulationLayout.setCanvasAndControls(this, canvas, controls);
 
         timer.start();
         redraw();
@@ -60,8 +59,9 @@ public class ParallelCircuitView extends BorderPane {
     }
 
     private VBox buildControls() {
-        Label title = new Label("Parallel Circuit");
+        Label title = new Label("Parallel circuit");
         title.setFont(AppTheme.cardTitleFont());
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #78350f; -fx-background-color: linear-gradient(to right, #fde68a, #fbbf24); -fx-background-radius: 10; -fx-padding: 8 16; -fx-background-insets: 0 4 0 0;");
 
         Slider vSlider = new Slider(0, 24, model.getVoltage());
         vSlider.setShowTickMarks(true);

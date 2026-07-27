@@ -25,12 +25,11 @@ public class KCLView extends BorderPane {
     private final Slider i3Slider = new Slider(0, 6, 2.2);
 
     public KCLView() {
-        setPadding(new Insets(12));
+        setPadding(new Insets(18));
         setStyle("-fx-background-color: transparent;");
 
         VBox controls = buildControls();
-        setTop(controls);
-        setCenter(canvas);
+        ElectricitySimulationLayout.setCanvasAndControls(this, canvas, controls);
 
         i1Slider.valueProperty().addListener((s, o, n) -> redraw());
         i2Slider.valueProperty().addListener((s, o, n) -> redraw());
@@ -40,15 +39,16 @@ public class KCLView extends BorderPane {
     }
 
     private VBox buildControls() {
-        Label title = new Label("Kirchhoff's Current Law");
+        Label title = new Label("Kirchhoff's current law");
         title.setFont(AppTheme.cardTitleFont());
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #78350f; -fx-background-color: linear-gradient(to right, #fde68a, #fbbf24); -fx-background-radius: 10; -fx-padding: 8 16; -fx-background-insets: 0 4 0 0;");
 
         Label description = new Label(
                 "KCL states that the total current entering a junction equals the total current leaving it. " +
                 "In this example, I1, I2 and I3 flow into the node and I_total flows out.");
         description.setFont(AppTheme.cardNumberFont());
         description.setWrapText(true);
-        description.setMaxWidth(520);
+        description.setMaxWidth(320);
 
         Label theory = new Label("I1 + I2 + I3 = I_total");
         theory.setFont(AppTheme.subtitleFont());
@@ -78,9 +78,6 @@ public class KCLView extends BorderPane {
         HBox i3Row = buildSliderRow("I3", i3Slider);
 
         VBox controls = new VBox(10, title, description, theory, currentSummary, balanceLabel, i1Row, i2Row, i3Row);
-        controls.setPadding(new Insets(20));
-        controls.setBackground(AppTheme.surfaceBackground());
-        controls.setBorder(AppTheme.cardBorder());
         controls.setAlignment(Pos.CENTER_LEFT);
         return controls;
     }

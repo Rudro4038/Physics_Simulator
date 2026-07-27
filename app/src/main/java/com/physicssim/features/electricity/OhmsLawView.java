@@ -46,11 +46,7 @@ public class OhmsLawView extends BorderPane {
         setStyle("-fx-background-color: transparent;");
 
         VBox controls = buildControls();
-        VBox.setMargin(controls, new Insets(8));
-
-        setTop(new Label("Current electricity — Voltage, Resistance and Current"));
-        setCenter(canvas);
-        setRight(controls);
+        ElectricitySimulationLayout.setCanvasAndControls(this, canvas, controls);
 
         loadStyles();
         setupCanvasInteraction();
@@ -68,6 +64,10 @@ public class OhmsLawView extends BorderPane {
     }
 
     private VBox buildControls() {
+        Label formula = new Label("V = I × R");
+        formula.setFont(AppTheme.cardTitleFont());
+        formula.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #78350f; -fx-background-color: linear-gradient(to right, #fde68a, #fbbf24); -fx-background-radius: 10; -fx-padding: 8 16; -fx-background-insets: 0 4 0 0;");
+
         Label vLabel = new Label("Voltage");
         vLabel.setFont(AppTheme.cardTitleFont());
 
@@ -193,9 +193,7 @@ public class OhmsLawView extends BorderPane {
         HBox rBox = new HBox(6, rMinus, rSlider, rPlus, rField, rUnitLabel, rValueLabel);
         rBox.setAlignment(Pos.CENTER_LEFT);
 
-        VBox controls = new VBox(12, vLabel, vBox, rLabel, rBox, keyToggle, keyStatus, currentLabel);
-        controls.setPadding(new Insets(8));
-        controls.setPrefWidth(320);
+        VBox controls = new VBox(12, formula, vLabel, vBox, rLabel, rBox, keyToggle, keyStatus, currentLabel);
         return controls;
     }
 

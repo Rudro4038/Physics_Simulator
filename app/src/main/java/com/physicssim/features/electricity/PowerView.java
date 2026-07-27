@@ -51,35 +51,26 @@ public class PowerView extends BorderPane {
 
     public PowerView() {
         setPadding(new Insets(18));
-        setBackground(AppTheme.pageBackground());
+        setStyle("-fx-background-color: transparent;");
 
         VBox controls = buildControls();
-        setTop(controls);
-
-        // Wrap canvas in card-style container
-        VBox canvasContainer = new VBox(canvas);
-        canvasContainer.setPadding(new Insets(10));
-        canvasContainer.setBackground(AppTheme.surfaceBackground());
-        canvasContainer.setBorder(AppTheme.cardBorder());
-        VBox.setMargin(canvasContainer, new Insets(10, 0, 0, 0));
-
-        setCenter(canvasContainer);
+        ElectricitySimulationLayout.setCanvasAndControls(this, canvas, controls);
 
         animationTimer.start();
         redraw();
     }
 
     private VBox buildControls() {
-        Label title = new Label("Power and Light Bulb");
+        Label title = new Label("Power and light bulb");
         title.setFont(AppTheme.cardTitleFont());
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #78350f; -fx-background-color: linear-gradient(to right, #fde68a, #fbbf24); -fx-background-radius: 10; -fx-padding: 8 16; -fx-background-insets: 0 4 0 0;");
 
         Label description = new Label(
                 "Power is the rate at which energy is used in an electrical circuit. P = V × I (Watts). " +
-                "The light bulb's brightness depends on the power dissipated through it. " +
-                "More power = brighter light. Adjust voltage and resistance to see the light bulb glow!");
+                "The light bulb's brightness depends on the power dissipated through it.");
         description.setFont(AppTheme.cardNumberFont());
         description.setWrapText(true);
-        description.setMaxWidth(520);
+        description.setMaxWidth(320);
 
         Label theory = new Label("P = V × I = V² / R");
         theory.setFont(AppTheme.subtitleFont());
@@ -157,9 +148,6 @@ public class PowerView extends BorderPane {
         switchRow.setAlignment(Pos.CENTER_LEFT);
 
         VBox controls = new VBox(10, title, description, theory, powerDisplay, voltageRow, resistanceRow, switchRow);
-        controls.setPadding(new Insets(20));
-        controls.setBackground(AppTheme.surfaceBackground());
-        controls.setBorder(AppTheme.cardBorder());
         controls.setAlignment(Pos.CENTER_LEFT);
         return controls;
     }
