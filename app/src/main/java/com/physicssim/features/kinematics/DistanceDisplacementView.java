@@ -50,10 +50,10 @@ public class DistanceDisplacementView extends BorderPane {
         setStyle("-fx-background-color: transparent;");
 
         Pane canvasContainer = new Pane(canvas);
-        canvasContainer.setStyle("-fx-background-color: #f0fdf4; -fx-background-radius: 16; -fx-border-color: #d9e2ee; -fx-border-radius: 16;");
+        canvasContainer.setStyle("-fx-background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -fx-background-radius: 20; -fx-border-color: #5b21b6; -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 20, 0.25, 0, 8);");
 
-        Button clearBtn = new Button("Clear");
-        clearBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #dbeafe; -fx-text-fill: #000000; -fx-background-radius: 10; -fx-padding: 10 20;");
+        Button clearBtn = new Button("Clear Canvas");
+        clearBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #f43f5e, #ec4899); -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 24; -fx-effect: dropshadow(gaussian, rgba(244, 63, 94, 0.3), 8, 0.2, 0, 4);");
         clearBtn.setOnAction(event -> clearAll());
 
         VBox controls = new VBox(16,
@@ -309,16 +309,15 @@ public class DistanceDisplacementView extends BorderPane {
     private VBox statBlock(String name, Label value, String desc) {
         Label label = new Label(name);
         label.setFont(AppTheme.cardTitleFont());
-        label.setTextFill(AppTheme.TEXT_PRIMARY);
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: 800; -fx-text-fill: #1e1b4b; -fx-background-color: linear-gradient(to right, #f0abfc, #c084fc); -fx-background-radius: 8; -fx-padding: 6 12; -fx-background-insets: 0 4 0 0;");
 
-        value.setFont(javafx.scene.text.Font.font(24));
-        value.setStyle("-fx-font-weight: 800;");
+        value.setFont(javafx.scene.text.Font.font(26));
+        value.setStyle("-fx-font-weight: 900; -fx-text-fill: #7c3aed; -fx-effect: dropshadow(gaussian, rgba(124, 58, 237, 0.2), 4, 0.15, 0, 2);");
 
         Label description = new Label(desc);
-        description.setTextFill(AppTheme.TEXT_SECONDARY);
-        description.setStyle("-fx-font-size: 12px;");
+        description.setStyle("-fx-font-size: 12px; -fx-text-fill: #6b7280; -fx-font-weight: 600; -fx-font-style: italic;");
         description.setWrapText(true);
 
-        return new VBox(6, label, value, description);
+        return new VBox(8, label, value, description);
     }
 }

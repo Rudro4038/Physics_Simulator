@@ -72,7 +72,7 @@ public class ProjectileMotionView extends BorderPane {
         setStyle("-fx-background-color: transparent;");
 
         Pane canvasContainer = new Pane(canvas);
-        canvasContainer.setStyle("-fx-background-color: linear-gradient(to bottom, #dbeafe, #f0fdf4); -fx-background-radius: 16; -fx-border-color: #d9e2ee; -fx-border-radius: 16;");
+        canvasContainer.setStyle("-fx-background-color: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); -fx-background-radius: 20; -fx-border-color: #0d9488; -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(168, 237, 234, 0.4), 20, 0.25, 0, 8);");
 
         speedSlider.valueProperty().addListener((obs, old, newVal) -> {
             speedLabel.setText(String.format("%.1f m/s", newVal.doubleValue()));
@@ -419,15 +419,15 @@ public class ProjectileMotionView extends BorderPane {
 
     private VBox statBlock(String name, Label value) {
         Label label = new Label(name);
-        label.setTextFill(Color.BLACK);
-        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
-        return new VBox(4, label, value);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-text-fill: #115e59; -fx-background-color: linear-gradient(to right, #99f6e4, #5eead4); -fx-background-radius: 8; -fx-padding: 6 12; -fx-background-insets: 0 4 0 0;");
+        value.setStyle("-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #0f766e; -fx-effect: dropshadow(gaussian, rgba(15, 118, 110, 0.2), 4, 0.15, 0, 2);");
+        return new VBox(6, label, value);
     }
 
     private HBox inputRow(String name, TextField field) {
         Label label = new Label(name);
         label.setPrefWidth(140);
-        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #1e293b;");
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #115e59; -fx-background-color: linear-gradient(to right, #ccfbf1, #99f6e4); -fx-background-radius: 6; -fx-padding: 4 8; -fx-background-insets: 0 2 0 0;");
         field.setPrefWidth(70);
         field.setDisable(false);
 
@@ -452,11 +452,12 @@ public class ProjectileMotionView extends BorderPane {
     }
 
     private void styleButton(Button button, String color) {
-        button.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;"
+        button.setStyle("-fx-font-size: 13px; -fx-font-weight: 800;"
                 + "-fx-background-color: " + color + ";"
-                + "-fx-background-radius: 8;"
-                + "-fx-padding: 10 16;"
-                + "-fx-min-width: 80px;"
-                + "-fx-text-fill: white;");
+                + "-fx-background-radius: 12;"
+                + "-fx-padding: 12 20;"
+                + "-fx-min-width: 85px;"
+                + "-fx-text-fill: white;"
+                + "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.18, 0, 3);");
     }
 }

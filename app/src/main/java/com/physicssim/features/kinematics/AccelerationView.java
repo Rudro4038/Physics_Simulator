@@ -63,7 +63,7 @@ public class AccelerationView extends BorderPane {
         setStyle("-fx-background-color: transparent;");
 
         Pane canvasContainer = new Pane(canvas);
-        canvasContainer.setStyle("-fx-background-color: #ffffff; -fx-border-color: #d9e2ee; -fx-border-radius: 8; -fx-background-radius: 8;");
+        canvasContainer.setStyle("-fx-background-color: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); -fx-background-radius: 20; -fx-border-color: #0284c7; -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.4), 20, 0.25, 0, 8);");
 
         startBtn.setText("Start");
         pauseBtn.setText("Pause");
@@ -85,7 +85,7 @@ public class AccelerationView extends BorderPane {
 
         Label formula = new Label("v = u + at");
         formula.setFont(AppTheme.cardTitleFont());
-        formula.setTextFill(AppTheme.TEXT_PRIMARY);
+        formula.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #0c4a6e; -fx-background-color: linear-gradient(to right, #7dd3fc, #38bdf8); -fx-background-radius: 10; -fx-padding: 8 16; -fx-background-insets: 0 4 0 0;");
 
         Label note = new Label("Note: When a = 0, the ball moves with constant velocity");
         note.setStyle("-fx-font-size: 11px; -fx-text-fill: #6b7280; -fx-font-style: italic;");
@@ -272,7 +272,7 @@ public class AccelerationView extends BorderPane {
     private HBox velocityInputRow(String name, TextField field, Slider slider, String unit) {
         Label label = new Label(name);
         label.setPrefWidth(150);
-        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #1e293b;");
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0c4a6e; -fx-background-color: linear-gradient(to right, #bae6fd, #7dd3fc); -fx-background-radius: 6; -fx-padding: 4 8; -fx-background-insets: 0 2 0 0;");
         label.setTextFill(AppTheme.TEXT_PRIMARY);
         field.setPrefWidth(70);
         field.setDisable(false);
@@ -323,7 +323,7 @@ public class AccelerationView extends BorderPane {
     private HBox accelerationInputRow(String name, TextField field, Slider slider, String unit) {
         Label label = new Label(name);
         label.setPrefWidth(150);
-        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #1e293b;");
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0c4a6e; -fx-background-color: linear-gradient(to right, #bae6fd, #7dd3fc); -fx-background-radius: 6; -fx-padding: 4 8; -fx-background-insets: 0 2 0 0;");
         label.setTextFill(AppTheme.TEXT_PRIMARY);
         field.setPrefWidth(70);
         field.setDisable(false);
@@ -373,15 +373,15 @@ public class AccelerationView extends BorderPane {
         Label label = new Label(symbol + ":");
         label.setPrefWidth(70);
         label.setFont(AppTheme.cardTitleFont());
-        label.setTextFill(AppTheme.TEXT_PRIMARY);
-        valueLabel.setTextFill(AppTheme.TEXT_PRIMARY);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-text-fill: #0369a1;");
+        valueLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-text-fill: #075985; -fx-effect: dropshadow(gaussian, rgba(7, 89, 133, 0.15), 3, 0.12, 0, 1);");
         HBox row = new HBox(8, label, valueLabel);
         row.setAlignment(Pos.CENTER_LEFT);
         return row;
     }
 
     private void styleButton(Button button, String color) {
-        button.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-background-color: " + color
-                + "; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10 16; -fx-min-width: 80px;");
+        button.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-background-color: " + color
+                + "; -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 20; -fx-min-width: 85px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0.18, 0, 3);");
     }
 }

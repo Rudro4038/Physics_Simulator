@@ -40,7 +40,7 @@ public class FreeFallView extends BorderPane {
         setStyle("-fx-background-color: transparent;");
 
         Pane canvasContainer = new Pane(canvas);
-        canvasContainer.setStyle("-fx-background-color: linear-gradient(to bottom, #e0f2fe, #fef9c3); -fx-background-radius: 16; -fx-border-color: #d9e2ee; -fx-border-radius: 16;");
+        canvasContainer.setStyle("-fx-background-color: linear-gradient(135deg, #fa709a 0%, #fee140 100%); -fx-background-radius: 20; -fx-border-color: #e11d48; -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(250, 112, 154, 0.4), 20, 0.25, 0, 8);");
 
         heightSlider.valueProperty().addListener((obs, old, newVal) -> {
             heightLabel.setText(String.format("%.1f m", newVal.doubleValue()));
@@ -51,10 +51,10 @@ public class FreeFallView extends BorderPane {
             }
         });
 
-        dropBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #22c55e; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 16;");
-        resetBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 16;");
-        heightUpBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 12; -fx-min-width: 50px;");
-        heightDownBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 12; -fx-min-width: 50px;");
+        dropBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #10b981, #059669); -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 20; -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 8, 0.2, 0, 4);");
+        resetBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #ef4444, #dc2626); -fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 20; -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 8, 0.2, 0, 4);");
+        heightUpBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed); -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 14; -fx-min-width: 55px; -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.3), 6, 0.18, 0, 3);");
+        heightDownBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed); -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 14; -fx-min-width: 55px; -fx-effect: dropshadow(gaussian, rgba(139, 92, 246, 0.3), 6, 0.18, 0, 3);");
 
         HBox heightControlButtons = new HBox(10, heightDownBtn, heightUpBtn);
         heightControlButtons.setAlignment(Pos.CENTER);
@@ -180,8 +180,8 @@ public class FreeFallView extends BorderPane {
 
     private VBox statBlock(String name, Label value) {
         Label label = new Label(name);
-        label.setTextFill(Color.BLACK);
-        label.setStyle("-fx-font-size: 15px; -fx-font-weight: 700;");
-        return new VBox(6, label, value);
+        label.setStyle("-fx-font-size: 16px; -fx-font-weight: 800; -fx-text-fill: #881337; -fx-background-color: linear-gradient(to right, #fbcfe8, #f9a8d4); -fx-background-radius: 8; -fx-padding: 6 12; -fx-background-insets: 0 4 0 0;");
+        value.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #be185d; -fx-effect: dropshadow(gaussian, rgba(190, 24, 93, 0.2), 4, 0.15, 0, 2);");
+        return new VBox(8, label, value);
     }
 }

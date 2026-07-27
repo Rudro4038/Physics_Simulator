@@ -88,12 +88,12 @@ public class KinematicsView extends BorderPane {
     }
 
     private String inactiveButtonStyle() {
-        return "-fx-font-size: 13px; -fx-font-weight: 700; -fx-background-color: #eef2ff;"
-                + "-fx-text-fill: #1e293b; -fx-background-radius: 10; -fx-padding: 10 14;";
+        return "-fx-font-size: 13px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #e0e7ff, #c7d2fe);"
+                + "-fx-text-fill: #1e1b4b; -fx-background-radius: 12; -fx-padding: 12 18; -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.15), 6, 0.12, 0, 3);";
     }
 
     private String activeButtonStyle() {
-        return "-fx-font-size: 13px; -fx-font-weight: 700; -fx-background-color: #3157d5;"
-                + "-fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 10 14;";
+        return "-fx-font-size: 13px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed);"
+                + "-fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 18; -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.4), 8, 0.2, 0, 4);";
     }
 }
