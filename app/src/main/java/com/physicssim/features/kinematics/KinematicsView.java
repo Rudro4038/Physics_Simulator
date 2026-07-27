@@ -1,17 +1,13 @@
 package com.physicssim.features.kinematics;
 
-import com.physicssim.theme.AppTheme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.util.EnumMap;
-import java.util.Map;
 
 public class KinematicsView extends BorderPane {
 
@@ -21,79 +17,55 @@ public class KinematicsView extends BorderPane {
     private final FreeFallView freeFallView = new FreeFallView();
     private final ProjectileMotionView projectileMotionView = new ProjectileMotionView();
 
-    private final Map<KinematicsToolType, Button> navButtons = new EnumMap<>(KinematicsToolType.class);
-    private Button activeButton;
+    private final Pane contentHost = new Pane();
 
     public KinematicsView() {
-        setPadding(new Insets(12));
-        setBackground(AppTheme.pageBackground());
-        setTop(buildHeader());
-        showSubsection(KinematicsToolType.DISTANCE_DISPLACEMENT);
+        setPadding(new Insets(18));
+        setStyle("-fx-background-color: transparent;");
+
+        Label title = new Label("🏃  Kinematics (Motion)  🏃");
+        title.setStyle("-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #7dd3fc, #8b5cf6); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);");
+        title.setAlignment(Pos.CENTER);
+
+        Label description = new Label(
+                "Explore fundamental concepts of motion through interactive simulations.");
+        description.setStyle("-fx-font-size: 16px; -fx-text-fill: #64748b; -fx-wrap-text: true;");
+        description.setPrefWidth(800);
+        description.setAlignment(Pos.CENTER);
+
+        Button backBtn = new Button("Back to Module List");
+        backBtn.setStyle("-fx-font-size: 14px; -fx-font-weight: 700; -fx-background-color: #e2e8f0; -fx-text-fill: #1e293b; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-padding: 8 16;");
+
+        Button distanceBtn = new Button("Distance & Displacement");
+        distanceBtn.setOnAction(event -> showSimulation(distanceDisplacementView));
+
+        Button speedBtn = new Button("Speed & Velocity");
+        speedBtn.setOnAction(event -> showSimulation(speedVelocityView));
+
+        Button accelerationBtn = new Button("Acceleration");
+        accelerationBtn.setOnAction(event -> showSimulation(accelerationView));
+
+        Button freeFallBtn = new Button("Free Fall");
+        freeFallBtn.setOnAction(event -> showSimulation(freeFallView));
+
+        Button projectileBtn = new Button("Projectile Motion");
+        projectileBtn.setOnAction(event -> showSimulation(projectileMotionView));
+
+        HBox buttons = new HBox(12, backBtn, distanceBtn, speedBtn, accelerationBtn, freeFallBtn, projectileBtn);
+        buttons.setAlignment(Pos.CENTER);
+
+        VBox header = new VBox(12, title, description, buttons);
+        header.setPadding(new Insets(16, 0, 24, 0));
+        header.setAlignment(Pos.CENTER);
+        header.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #0f172a, #020617); -fx-background-radius: 12; -fx-padding: 20;");
+
+        setTop(header);
+        setCenter(contentHost);
+        showSimulation(distanceDisplacementView);
     }
 
-    private Node buildHeader() {
-        Label title = new Label("Kinematics (Motion)");
-        title.setFont(AppTheme.heroFont());
-        title.setStyle("-fx-font-size: 41px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
-
-        Label subtitle = new Label("One kinematics module with five subsections. Pick a topic below.");
-        subtitle.setFont(AppTheme.subtitleFont());
-        subtitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 500; -fx-text-fill: #1f2937;");
-        subtitle.setWrapText(true);
-
-        FlowPane nav = new FlowPane(8, 8);
-        nav.setAlignment(Pos.CENTER_LEFT);
-        nav.setPrefWrapLength(960);
-
-        for (KinematicsToolItem item : KinematicsCatalog.tools()) {
-            Button button = createNavButton(item);
-            navButtons.put(item.getType(), button);
-            nav.getChildren().add(button);
-        }
-
-        VBox header = new VBox(12, title, subtitle, nav);
-        header.setPadding(new Insets(20));
-        header.setBackground(AppTheme.surfaceBackground());
-        header.setBorder(AppTheme.cardBorder());
-        return header;
-    }
-
-    private Button createNavButton(KinematicsToolItem item) {
-        Button button = new Button(item.getNumber() + " " + item.getTitle());
-        button.setWrapText(true);
-        button.setStyle(inactiveButtonStyle());
-        button.setOnAction(event -> showSubsection(item.getType()));
-        return button;
-    }
-
-    private void showSubsection(KinematicsToolType type) {
-        Node view = switch (type) {
-            case DISTANCE_DISPLACEMENT -> distanceDisplacementView;
-            case SPEED_VELOCITY -> speedVelocityView;
-            case ACCELERATION -> accelerationView;
-            case FREE_FALL -> freeFallView;
-            case PROJECTILE_MOTION -> projectileMotionView;
-        };
-
-        setCenter(view);
-
-        if (activeButton != null) {
-            activeButton.setStyle(inactiveButtonStyle());
-        }
-
-        activeButton = navButtons.get(type);
-        if (activeButton != null) {
-            activeButton.setStyle(activeButtonStyle());
-        }
-    }
-
-    private String inactiveButtonStyle() {
-        return "-fx-font-size: 13px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #e0e7ff, #c7d2fe);"
-                + "-fx-text-fill: #1e1b4b; -fx-background-radius: 12; -fx-padding: 12 18; -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.15), 6, 0.12, 0, 3);";
-    }
-
-    private String activeButtonStyle() {
-        return "-fx-font-size: 13px; -fx-font-weight: 800; -fx-background-color: linear-gradient(to right, #4f46e5, #7c3aed);"
-                + "-fx-text-fill: white; -fx-background-radius: 12; -fx-padding: 12 18; -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.4), 8, 0.2, 0, 4);";
+    private void showSimulation(Pane view) {
+        contentHost.getChildren().clear();
+        contentHost.getChildren().add(view);
     }
 }

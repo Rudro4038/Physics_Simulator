@@ -60,8 +60,7 @@ public class SimulationsView extends BorderPane {
     }
 
     private void buildLayout() {
-        contentHost.setBackground(
-                new Background(new BackgroundFill(AppTheme.SURFACE, CornerRadii.EMPTY, Insets.EMPTY)));
+        contentHost.setBackground(AppTheme.pageBackground());
         VBox.setVgrow(contentHost, Priority.ALWAYS);
 
         layout.getChildren().setAll(contentHost);
@@ -179,7 +178,7 @@ public class SimulationsView extends BorderPane {
 
         SVGPath leftArrow = new SVGPath();
         leftArrow.setContent("M 16 4 L 6 12 L 16 20");
-        leftArrow.setStroke(javafx.scene.paint.Color.WHITE);
+        leftArrow.setStroke(AppTheme.TEXT_PRIMARY);
         leftArrow.setStrokeWidth(3);
         leftArrow.setFill(null);
         leftArrow.setStrokeLineCap(StrokeLineCap.ROUND);
@@ -187,11 +186,13 @@ public class SimulationsView extends BorderPane {
 
         backButton.setGraphic(leftArrow);
         backButton.setFont(javafx.scene.text.Font.font("Arial", 12));
-        backButton.setTextFill(AppTheme.SURFACE);
+        backButton.setTextFill(AppTheme.TEXT_PRIMARY);
+        backButton.getStyleClass().remove("physics-button");
+        backButton.getStyleClass().add("nav-button");
         backButton.setBackground(
                 new Background(
                         new BackgroundFill(
-                                javafx.scene.paint.Color.web("#3157d5"),
+                                AppTheme.NAV_BACKGROUND,
                                 new CornerRadii(12),
                                 Insets.EMPTY)));
 

@@ -18,7 +18,7 @@ public class AppFooter extends HBox {
 
         getChildren().add(footer);
         setAlignment(Pos.CENTER);
-        setPadding(new Insets(18, 0, 18, 0));
+        setPadding(new Insets(16, 0, 16, 0));
         setBackground(new Background(new BackgroundFill(AppTheme.SURFACE, CornerRadii.EMPTY, Insets.EMPTY)));
         setBorder(AppTheme.topBorder());
     }

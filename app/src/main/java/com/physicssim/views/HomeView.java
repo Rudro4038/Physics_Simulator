@@ -34,9 +34,10 @@ public class HomeView extends BorderPane {
         VBox content = new VBox(36, title, subtitle, cardsRow);
         content.setAlignment(Pos.CENTER);
         content.setPadding(new Insets(64, 40, 64, 40));
-        content.setBackground(AppTheme.surfaceBackground());
+        content.setBackground(AppTheme.pageBackground());
 
         BorderPane wrapper = new BorderPane(content);
+        wrapper.setBackground(AppTheme.pageBackground());
         wrapper.setPadding(new Insets(28, 26, 28, 26));
 
         VBox outer = new VBox(wrapper);

@@ -14,11 +14,6 @@ import javafx.scene.control.Label;
 
 public class SimulationCard extends VBox {
 
-    private static final String CARD_STYLE =
-            "-fx-effect: dropshadow(gaussian, rgba(24, 39, 75, 0.12), 18, 0.25, 0, 6);";
-    private static final String CARD_HOVER_STYLE =
-            "-fx-effect: dropshadow(gaussian, rgba(24, 39, 75, 0.20), 26, 0.30, 0, 12);";
-
     public SimulationCard(SimulationItem item) {
         Label numberLabel = new Label(item.getNumber());
         numberLabel.setFont(AppTheme.cardNumberFont());
@@ -33,23 +28,17 @@ public class SimulationCard extends VBox {
         titleLabel.setWrapText(true);
 
         getChildren().addAll(numberLabel, icon, titleLabel);
+        getStyleClass().add("simulation-card");
         setAlignment(Pos.TOP_CENTER);
         setSpacing(16);
         setPadding(new Insets(18, 16, 18, 16));
         setPrefSize(210, 250);
         setMaxSize(210, 250);
-        setBackground(new Background(new BackgroundFill(AppTheme.SURFACE, new CornerRadii(18), Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(AppTheme.CARD_SURFACE, new CornerRadii(18), Insets.EMPTY)));
         setBorder(AppTheme.cardBorder());
-        setStyle(CARD_STYLE);
         setCursor(Cursor.HAND);
 
-        setOnMouseEntered(event -> {
-            setTranslateY(-5);
-            setStyle(CARD_HOVER_STYLE);
-        });
-        setOnMouseExited(event -> {
-            setTranslateY(0);
-            setStyle(CARD_STYLE);
-        });
+        setOnMouseEntered(event -> setTranslateY(-5));
+        setOnMouseExited(event -> setTranslateY(0));
     }
 }

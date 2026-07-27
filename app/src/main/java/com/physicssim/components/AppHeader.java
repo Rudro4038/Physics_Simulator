@@ -9,7 +9,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -22,12 +21,12 @@ public class AppHeader extends HBox {
 
         Label brand = new Label("Physix");
         brand.setFont(AppTheme.brandFont());
-        brand.setTextFill(Color.web("#1b1f24"));
+        brand.setTextFill(AppTheme.TEXT_PRIMARY);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        HBox nav = new HBox(12);
+        HBox nav = new HBox(10);
         nav.setAlignment(Pos.CENTER_RIGHT);
 
         nav.getChildren().addAll(
@@ -41,7 +40,7 @@ public class AppHeader extends HBox {
 
         setAlignment(Pos.CENTER_LEFT);
         setSpacing(24);
-        setPadding(new Insets(22, 34, 22, 34));
+        setPadding(new Insets(28, 40, 28, 40));
         setBackground(new Background(
                 new BackgroundFill(AppTheme.SURFACE, CornerRadii.EMPTY, Insets.EMPTY)
         ));
@@ -56,11 +55,12 @@ public class AppHeader extends HBox {
         PhysicsButton button =
                 new PhysicsButton(text, PhysicsButton.Style.TEXT_ONLY);
 
+        button.getStyleClass().remove("physics-button");
+        button.getStyleClass().add("nav-button");
         button.setFocusTraversable(false);
         button.setCursor(Cursor.HAND);
-        button.setBackground(Background.EMPTY);
-        button.setBorder(Border.EMPTY);
-        button.setPadding(new Insets(10, 14, 10, 14));
+        button.setBorder(null);
+        button.setPadding(new Insets(10, 22, 10, 22));
 
         applyNavStyle(
                 button,
@@ -104,11 +104,12 @@ public class AppHeader extends HBox {
     }
 
     private void applyNavStyle(PhysicsButton button, boolean active) {
+        button.getStyleClass().remove("nav-button-active");
         button.setFont(AppTheme.navFont(active));
-        button.setTextFill(
-                active
-                        ? Color.web("#101827")
-                        : Color.web("#596579")
-        );
+        button.setTextFill(active ? AppTheme.NAV_TEXT_ACTIVE : AppTheme.NAV_TEXT);
+
+        if (active) {
+            button.getStyleClass().add("nav-button-active");
+        }
     }
 }

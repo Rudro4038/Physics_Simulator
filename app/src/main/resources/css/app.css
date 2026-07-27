@@ -1,2 +1,68 @@
 @import "components/PhysicsButton.css";
-@import "features/electricity/Electricity.css"
+@import "features/electricity/Electricity.css";
+
+.root {
+    -fx-background-color: #2e3446;
+    -fx-font-family: "Arial";
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #5c6680;
+    -fx-background-radius: 6;
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: #6e7894;
+}
+
+.nav-button {
+    -fx-background-color: #4a5470;
+    -fx-background-radius: 20;
+    -fx-padding: 10 22 10 22;
+    -fx-cursor: hand;
+    -fx-text-fill: #ddd5c8;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-effect: null;
+}
+
+.nav-button:hover {
+    -fx-background-color: #556380;
+    -fx-text-fill: #f5f0e8;
+}
+
+.nav-button-active {
+    -fx-background-color: #556380;
+    -fx-text-fill: #faf6f0;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(126, 200, 242, 0.35), 12, 0.3, 0, 0);
+}
+
+.simulation-card {
+    -fx-background-color: #404968;
+    -fx-background-radius: 18;
+    -fx-border-color: #5c6680;
+    -fx-border-radius: 18;
+    -fx-border-width: 1.2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.2, 0, 3);
+}
+
+.simulation-card:hover {
+    -fx-background-color: #485274;
+    -fx-border-color: #7ec8f2;
+    -fx-effect: dropshadow(gaussian, rgba(126, 200, 242, 0.2), 16, 0.3, 0, 5);
+}

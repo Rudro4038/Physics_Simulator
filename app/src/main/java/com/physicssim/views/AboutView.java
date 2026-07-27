@@ -27,9 +27,10 @@ public class AboutView extends BorderPane {
         VBox content = new VBox(24, title, body);
         content.setAlignment(Pos.CENTER);
         content.setPadding(new Insets(70, 40, 70, 40));
-        content.setBackground(AppTheme.surfaceBackground());
+        content.setBackground(AppTheme.pageBackground());
 
         BorderPane wrapper = new BorderPane(content);
+        wrapper.setBackground(AppTheme.pageBackground());
         wrapper.setPadding(new Insets(28, 26, 28, 26));
         setCenter(wrapper);
     }
