@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /** Matches kinematics-style gradient frame around the pendulum scene. */
@@ -19,7 +20,7 @@ public final class PendulumSimulationLayout {
     }
 
     public static Pane wrapSimulation(PendulumCanvas canvas) {
-        Pane container = new Pane(canvas);
+        StackPane container = new StackPane(canvas);
         container.setStyle(CANVAS_FRAME_STYLE);
         return container;
     }
