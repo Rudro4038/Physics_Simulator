@@ -14,10 +14,10 @@ import javafx.scene.text.FontWeight;
 
 public final class AppTheme {
 
-    public static final Color PAGE_BACKGROUND = Color.web("#353941");
+    public static final Color PAGE_BACKGROUND = Color.WHITE;
     public static final Color SURFACE = Color.WHITE;
     public static final Color BORDER = Color.web("#d9e1ea");
-    public static final Color CARD_BORDER = Color.web("#dbe5ec");
+    public static final Color CARD_BORDER = Color.web("#80a2b9");
     public static final Color TEXT_PRIMARY = Color.web("#0f1720");
     public static final Color TEXT_SECONDARY = Color.web("#556270");
     public static final Color TEXT_MUTED = Color.web("#6b7280");

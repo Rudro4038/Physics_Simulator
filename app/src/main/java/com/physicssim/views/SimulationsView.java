@@ -31,7 +31,6 @@ public class SimulationsView extends BorderPane {
     private final BorderPane contentHost = new BorderPane();
     private final ScrollPane rootScroll = new ScrollPane();
     private final VBox layout = new VBox(26);
-    private final VBox header = new VBox(12);
 
     public SimulationsView() {
         setBackground(AppTheme.pageBackground());
@@ -53,36 +52,13 @@ public class SimulationsView extends BorderPane {
     }
 
     private void buildLayout() {
-        Label title = new Label("Simulations");
-        title.setFont(AppTheme.heroFont());
-        title.setTextFill(javafx.scene.paint.Color.WHITE);  // ✅ EXPLICIT WHITE
-        title.setStyle("-fx-text-alignment: left; -fx-padding: 8px 0;");
-        title.setWrapText(true);
-
-        Label subtitle = new Label(
-                "Open a simulation module from here. The home page stays clean while the actual labs live in this section.");
-        subtitle.setFont(AppTheme.subtitleFont());
-        subtitle.setTextFill(javafx.scene.paint.Color.web("#CCCCCC"));  // ✅ LIGHT GRAY
-        subtitle.setWrapText(true);
-        subtitle.setStyle("-fx-text-alignment: left; -fx-line-spacing: 2;");
-
-        header.setBackground(
-                new Background(new BackgroundFill(
-                        javafx.scene.paint.Color.web("#1a1a1a"), 
-                        new CornerRadii(8), 
-                        Insets.EMPTY)));
-        header.setPadding(new Insets(20, 16, 20, 16));
-        header.getChildren().setAll(title, subtitle);
-        header.setSpacing(12);
-
         contentHost.setBackground(
                 new Background(new BackgroundFill(AppTheme.SURFACE, CornerRadii.EMPTY, Insets.EMPTY)));
         VBox.setVgrow(contentHost, Priority.ALWAYS);
 
-        layout.getChildren().setAll(header, contentHost);
+        layout.getChildren().setAll(contentHost);
         layout.setPadding(new Insets(24, 20, 24, 20));
         layout.setFillWidth(true);
-        layout.setSpacing(20);
         VBox.setVgrow(contentHost, Priority.ALWAYS);
     }
 
@@ -110,7 +86,6 @@ public class SimulationsView extends BorderPane {
 
     private void openSimulation(SimulationItem item) {
 
-        hideSectionHeader();
         contentHost.setTop(null);
 
         switch (item.getType()) {
@@ -137,7 +112,7 @@ public class SimulationsView extends BorderPane {
                     buildSimulationPage(new VectorAdditionView()));
 
             default -> {
-                showSectionHeader();
+                showCatalog();
 
                 Label placeholder = createPlaceholderLabel(item);
 
@@ -199,7 +174,6 @@ public class SimulationsView extends BorderPane {
         backButton.setStyle("-fx-font-smoothing-type: lcd;");
 
         backButton.setOnAction(event -> {
-            showSectionHeader();
             showCatalog();
         });
 
@@ -210,11 +184,4 @@ public class SimulationsView extends BorderPane {
         return bar;
     }
 
-    private void hideSectionHeader() {
-        layout.getChildren().setAll(contentHost);
-    }
-
-    private void showSectionHeader() {
-        layout.getChildren().setAll(header, contentHost);
-    }
 }
