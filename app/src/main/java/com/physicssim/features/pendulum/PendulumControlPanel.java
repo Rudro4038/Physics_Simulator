@@ -45,10 +45,17 @@ public class PendulumControlPanel extends VBox {
             Consumer<Double> onGravityChanged,
             Consumer<Double> onLengthChanged,
             Consumer<Double> onMassChanged) {
-        Label title = sectionTitle("Pendulum Controls");
-        Label subtitle = new Label("Fine-tune motion and watch the scene respond.");
-        subtitle.setTextFill(Color.web("#1e293b"));
+        Label title = sectionTitle("Pendulum controls");
+        title.setStyle("-fx-font-size: 18px; -fx-font-weight: 900; -fx-text-fill: #0c4a6e; -fx-background-color: linear-gradient(to right, #7dd3fc, #38bdf8); -fx-background-radius: 10; -fx-padding: 8 12; -fx-background-insets: 0 4 0 0;");
+
+        Label formula = new Label("T ≈ 2π√(L/g)");
+        formula.setTextFill(Color.web("#475569"));
+        formula.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
+
+        Label subtitle = new Label("Adjust parameters and play to watch the swing.");
+        subtitle.setTextFill(Color.web("#64748b"));
         subtitle.setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
+        subtitle.setWrapText(true);
 
         VBox gravityBlock = buildSliderBlock("Gravity", gravityValueLabel, gravitySlider, onGravityChanged, "%.2f m/s^2");
         VBox lengthBlock = buildSliderBlock("Rod Length", lengthValueLabel, lengthSlider, onLengthChanged, "%.2f m");
@@ -71,21 +78,13 @@ public class PendulumControlPanel extends VBox {
         HBox buttonRow = new HBox(10, playPauseButton, resetButton);
         buttonRow.setAlignment(Pos.CENTER_LEFT);
 
-        getChildren().addAll(new VBox(3, title, subtitle), gravityBlock, lengthBlock, massBlock, angleBlock, buttonRow);
+        getChildren().addAll(new VBox(6, title, formula, subtitle), gravityBlock, lengthBlock, massBlock, angleBlock, buttonRow);
         setSpacing(13);
         setAlignment(Pos.TOP_LEFT);
-        setPadding(new Insets(16));
-        setPrefWidth(250);
-        setMinWidth(250);
-        setBackground(new Background(new BackgroundFill(Color.web("#f8fbff"), new CornerRadii(20), Insets.EMPTY)));
-        setBorder(new Border(new BorderStroke(
-                Color.web("#dce7f3"),
-                BorderStrokeStyle.SOLID,
-                new CornerRadii(20),
-                new BorderWidths(1))));
-        setStyle("-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.08), 18, 0.18, 0, 6);"
-                + "-fx-background-radius: 20;"
-                + "-fx-border-radius: 20;");
+        setPadding(new Insets(8));
+        setPrefWidth(300);
+        setMinWidth(280);
+        setStyle("-fx-background-color: transparent;");
     }
 
     public double getSelectedAngle() {

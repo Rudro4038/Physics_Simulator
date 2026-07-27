@@ -6,9 +6,9 @@ import com.physicssim.features.electricity.CurrentElectricityView;
 import com.physicssim.features.gravity.GravityView;
 import com.physicssim.features.kinematics.KinematicsView;
 import com.physicssim.features.mechanics.MechanicsElasticityView;
-import com.physicssim.features.pendulum.PendulumSimulationView;
+import com.physicssim.features.pendulum.PendulumView;
 import com.physicssim.features.simulations.SimulationFeatureCard;
-import com.physicssim.features.vector.VectorAdditionView;
+import com.physicssim.features.vector.VectorView;
 import com.physicssim.model.SimulationCatalog;
 import com.physicssim.model.SimulationItem;
 import com.physicssim.theme.AppTheme;
@@ -106,7 +106,7 @@ public class SimulationsView extends BorderPane {
         switch (item.getType()) {
 
             case PENDULUM -> contentHost.setCenter(
-                    buildSimulationPage(new PendulumSimulationView()));
+                    buildSimulationPage(new PendulumView()));
 
             case WORK_POWER_ENERGY -> contentHost.setCenter(
                     buildSimulationPage(new MechanicsElasticityView()));
@@ -124,7 +124,7 @@ public class SimulationsView extends BorderPane {
                     buildSimulationPage(new AtomicNuclearView()));
 
             case VECTOR -> contentHost.setCenter(
-                    buildSimulationPage(new VectorAdditionView()));
+                    buildSimulationPage(new VectorView()));
 
             default -> {
                 showCatalog();

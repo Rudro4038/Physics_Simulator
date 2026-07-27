@@ -7,15 +7,10 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class PendulumSimulationView extends BorderPane {
 
@@ -37,22 +32,15 @@ public class PendulumSimulationView extends BorderPane {
     private final Label maxVelocityValueLabel = metricValueLabel();
     private final Label currentVelocityValueLabel = metricValueLabel();
     private final Label positionValueLabel = metricValueLabel();
-    private final Label statusBadgeLabel = new Label("● LIVE");
-    private final Label insightLabel = new Label("A smooth oscillation is underway. Enjoy the motion.");
+    private final Label statusLabel = new Label("Paused");
     private final List<Double> angleHistory = new ArrayList<>();
     private final List<Double> velocityHistory = new ArrayList<>();
     private boolean running = true;
     private double maxVelocity = 0;
 
     public PendulumSimulationView() {
-        Label title = new Label("Pendulum Dynamics Dashboard");
-        title.setFont(AppTheme.heroFont());
-        title.setStyle("-fx-font-size: 41px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
-
-        Label subtitle = new Label("Interactive pendulum lab with live controls, simulation space, and motion analytics.");
-        subtitle.setFont(AppTheme.subtitleFont());
-        subtitle.setStyle("-fx-font-size: 20px; -fx-font-weight: 500; -fx-text-fill: #1f2937;");
-        subtitle.setWrapText(true);
+        setPadding(new Insets(18));
+        setStyle("-fx-background-color: transparent;");
 
         controlPanel = new PendulumControlPanel(
                 this::toggleRunning,
@@ -62,122 +50,50 @@ public class PendulumSimulationView extends BorderPane {
                 this::updateLengthFromSlider,
                 this::updateMassFromSlider);
 
-        VBox textBlock = new VBox(8, title, subtitle);
-        textBlock.setAlignment(Pos.TOP_LEFT);
+        Pane simulationFrame = PendulumSimulationLayout.wrapSimulation(canvas);
+        VBox metrics = buildMetricsColumn();
 
-        BorderPane simulationBoard = new BorderPane(canvas);
-        simulationBoard.setPadding(new Insets(15));
-        simulationBoard.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(18), Insets.EMPTY)));
-        simulationBoard.setStyle("-fx-border-color: #d9e2ee;"
-                + "-fx-border-radius: 18;"
-                + "-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.08), 18, 0.18, 0, 6);");
-
-        VBox metricsCard = buildMetricsCard();
-
-        HBox topRow = new HBox(17, controlPanel, simulationBoard, metricsCard);
-        HBox.setHgrow(simulationBoard, Priority.ALWAYS);
-        topRow.setAlignment(Pos.TOP_LEFT);
+        PendulumSimulationLayout.setMainRow(this, controlPanel, simulationFrame, metrics);
 
         HBox bottomRow = new HBox(24, angleChart, velocityChart);
-        bottomRow.setAlignment(Pos.CENTER);
+        bottomRow.setAlignment(Pos.CENTER_LEFT);
+        bottomRow.setPadding(new Insets(16, 0, 0, 0));
 
-        VBox content = new VBox(20, buildHeaderCard(textBlock), topRow, bottomRow);
-        content.setPadding(new Insets(25));
-        content.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(24), Insets.EMPTY)));
-        content.setStyle("-fx-border-color: #dde5ef;"
-                + "-fx-border-radius: 24;"
-                + "-fx-effect: dropshadow(gaussian, rgba(16, 24, 40, 0.08), 24, 0.20, 0, 8);");
-        content.setMaxWidth(1200);
-
-        setPadding(new Insets(20, 24, 24, 24));
-        setCenter(content);
+        VBox root = new VBox(bottomRow);
+        setBottom(root);
 
         resetTelemetry();
         updateReadings();
         startAnimation();
     }
 
-    private VBox buildHeaderCard(VBox textBlock) {
-        statusBadgeLabel.setTextFill(Color.WHITE);
-        statusBadgeLabel.setStyle("-fx-background-color: linear-gradient(to right, #2563eb, #3b82f6);"
-                + " -fx-background-radius: 999;"
-                + " -fx-padding: 6 10;"
-                + " -fx-font-size: 11px;"
-                + " -fx-font-weight: 800;");
-        statusBadgeLabel.setEffect(new DropShadow(12, Color.color(0.15, 0.2, 0.33, 0.2)));
+    private VBox buildMetricsColumn() {
+        Label title = new Label("Live metrics");
+        title.setStyle("-fx-font-size: 15px; -fx-font-weight: 800; -fx-text-fill: #1e1b4b; -fx-background-color: linear-gradient(to right, #f0abfc, #c084fc); -fx-background-radius: 8; -fx-padding: 6 12; -fx-background-insets: 0 4 0 0;");
 
-        insightLabel.setWrapText(true);
-        insightLabel.setTextFill(Color.web("#334155"));
-        insightLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
-
-        VBox infoStack = new VBox(5, statusBadgeLabel, insightLabel);
-        infoStack.setAlignment(Pos.TOP_RIGHT);
-        HBox headerRow = new HBox(16, textBlock, infoStack);
-        HBox.setHgrow(textBlock, Priority.ALWAYS);
-        headerRow.setAlignment(Pos.CENTER_LEFT);
-
-        VBox card = new VBox(4, headerRow);
-        card.setPadding(new Insets(16, 18, 16, 18));
-        card.setBackground(new Background(new BackgroundFill(Color.web("#f8fbff"), new CornerRadii(18), Insets.EMPTY)));
-        card.setStyle("-fx-border-color: #dce7f3;"
-                + "-fx-border-radius: 18;"
-                + "-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.06), 14, 0.14, 0, 4);");
-        return card;
-    }
-
-    private VBox buildMetricsCard() {
-        Label title = new Label("Live Metrics");
-        title.setTextFill(Color.WHITE);
-        title.setStyle("-fx-font-size: 14px; -fx-font-weight: 800;");
-
-        Label subtitle = new Label("At-a-glance motion telemetry");
-        subtitle.setTextFill(Color.web("#94a3b8"));
-        subtitle.setStyle("-fx-font-size: 11px; -fx-font-weight: 600;");
-
-        periodValueLabel.setTextFill(Color.web("#e0e7ff"));
-        maxVelocityValueLabel.setTextFill(Color.web("#e0e7ff"));
-        currentVelocityValueLabel.setTextFill(Color.web("#e0e7ff"));
-        positionValueLabel.setTextFill(Color.web("#e0e7ff"));
+        statusLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 700; -fx-text-fill: #6b7280;");
 
         positionValueLabel.setWrapText(true);
 
-        VBox positionRow = new VBox(2,
-                new Label("Position") {{
-                    setTextFill(Color.web("#cbd5e1"));
-                    setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
-                }},
-                positionValueLabel);
-        positionRow.setAlignment(Pos.TOP_LEFT);
-
-        VBox card = new VBox(12,
-                new VBox(2, title, subtitle),
-                metricRow("Period", periodValueLabel),
-                metricRow("Max Velocity", maxVelocityValueLabel),
-                metricRow("Current Velocity", currentVelocityValueLabel),
-                positionRow);
-        card.setPadding(new Insets(15));
-        card.setPrefWidth(300);
-        card.setMaxWidth(320);
-        card.setBackground(new Background(new BackgroundFill(Color.web("#0f2b4f"), new CornerRadii(18), Insets.EMPTY)));
-        card.setStyle("-fx-border-color: #d9e2ee;"
-                + "-fx-border-radius: 18;"
-                + "-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.08), 16, 0.18, 0, 6);");
-        return card;
+        return new VBox(12,
+                title,
+                statusLabel,
+                statBlock("Period", periodValueLabel),
+                statBlock("Max velocity", maxVelocityValueLabel),
+                statBlock("Current velocity", currentVelocityValueLabel),
+                statBlock("Bob position", positionValueLabel));
     }
 
-    private HBox metricRow(String name, Label valueLabel) {
-        Label nameLabel = new Label(name);
-        nameLabel.setTextFill(Color.web("#cbd5e1"));
-        nameLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: 600;");
-        HBox row = new HBox(10, nameLabel, valueLabel);
-        row.setAlignment(Pos.CENTER_LEFT);
-        return row;
+    private VBox statBlock(String name, Label valueLabel) {
+        Label label = new Label(name);
+        label.setFont(AppTheme.cardTitleFont());
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0369a1;");
+        return new VBox(4, label, valueLabel);
     }
 
     private Label metricValueLabel() {
         Label label = new Label();
-        label.setTextFill(Color.web("#e0e7ff"));
-        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
+        label.setStyle("-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: #7c3aed; -fx-effect: dropshadow(gaussian, rgba(124, 58, 237, 0.2), 4, 0.15, 0, 2);");
         return label;
     }
 
@@ -260,35 +176,10 @@ public class PendulumSimulationView extends BorderPane {
         currentVelocityValueLabel.setText(String.format("%.2f m/s", currentVelocity));
         positionValueLabel.setText(String.format("x=%.2f m, y=%.2f m", model.getHorizontalPosition(), model.getVerticalPosition()));
 
-        statusBadgeLabel.setText(running ? "● LIVE" : "⏸ PAUSED");
-        statusBadgeLabel.setStyle(running
-                ? "-fx-background-color: linear-gradient(to right, #2563eb, #3b82f6);"
-                + " -fx-background-radius: 999;"
-                + " -fx-padding: 6 10;"
-                + " -fx-font-size: 11px;"
-                + " -fx-font-weight: 800;"
-                : "-fx-background-color: linear-gradient(to right, #f59e0b, #f97316);"
-                + " -fx-background-radius: 999;"
-                + " -fx-padding: 6 10;"
-                + " -fx-font-size: 11px;"
-                + " -fx-font-weight: 800;");
-        insightLabel.setText(buildInsightText(angleDegrees, currentVelocity));
+        statusLabel.setText(running ? "Status: running" : "Status: paused");
 
-        angleChart.plot(angleHistory, Color.web("#22c55e"));
-        velocityChart.plot(velocityHistory, Color.web("#3b82f6"));
-    }
-
-    private String buildInsightText(double angleDegrees, double currentVelocity) {
-        if (!running) {
-            return "The pendulum is paused, ready for a fresh experiment.";
-        }
-        if (Math.abs(angleDegrees) < 8.0) {
-            return "The bob is near equilibrium and moving with noticeable speed.";
-        }
-        if (Math.abs(currentVelocity) > 3.0) {
-            return "The swing is energetic, with strong momentum and a vivid arc.";
-        }
-        return "The motion is easing into a graceful oscillation.";
+        angleChart.plot(angleHistory, javafx.scene.paint.Color.web("#22c55e"));
+        velocityChart.plot(velocityHistory, javafx.scene.paint.Color.web("#3b82f6"));
     }
 
     private void pushHistory(List<Double> history, double value) {

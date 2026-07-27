@@ -35,23 +35,15 @@ public class PendulumChartCard extends VBox {
         this.xAxisLabel = xAxisLabel;
 
         Label titleLabel = new Label(title);
-        titleLabel.setTextFill(Color.BLACK);
-        titleLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 700;");
+        titleLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-text-fill: #1e1b4b; -fx-background-color: linear-gradient(to right, #e0e7ff, #c7d2fe); -fx-background-radius: 8; -fx-padding: 4 10;");
 
         getChildren().addAll(titleLabel, canvas);
         setSpacing(10);
-        setPadding(new Insets(15));
+        setPadding(new Insets(12));
         setPrefWidth(CARD_WIDTH + 30);
         setMaxWidth(CARD_WIDTH + 30);
-        setBackground(new Background(new BackgroundFill(Color.web("#f8fbff"), new CornerRadii(18), Insets.EMPTY)));
-        setBorder(new Border(new BorderStroke(
-                Color.web("#d9e2ee"),
-                BorderStrokeStyle.SOLID,
-                new CornerRadii(18),
-                new BorderWidths(1))));
-        setStyle("-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.08), 16, 0.18, 0, 6);"
-                + "-fx-background-radius: 18;"
-                + "-fx-border-radius: 18;");
+        setStyle("-fx-background-color: white; -fx-background-radius: 16; -fx-border-color: #e2e8f0; -fx-border-radius: 16;"
+                + "-fx-effect: dropshadow(gaussian, rgba(15, 23, 32, 0.06), 12, 0.14, 0, 4);");
     }
 
     public void plot(List<Double> values, Color lineColor) {

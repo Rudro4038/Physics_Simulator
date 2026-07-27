@@ -2,20 +2,17 @@ package com.physicssim.features.vector;
 
 import com.physicssim.theme.AppTheme;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class DotProductView extends BorderPane {
 
-    private final Canvas vectorCanvas = new Canvas(560, 360);
+    private final Canvas vectorCanvas = new Canvas(520, 300);
     private final Slider firstMagnitude = new Slider(1, 8, 4);
     private final Slider firstAngle = new Slider(0, 360, 35);
     private final Slider secondMagnitude = new Slider(1, 8, 3);
@@ -23,72 +20,46 @@ public class DotProductView extends BorderPane {
     private final Label resultLabel = new Label();
     private final Label angleLabel = new Label();
 
-    public DotProductView(Runnable onBack) {
-        getStylesheets().add(getClass().getResource("/css/features/vector/VectorAddition.css").toExternalForm());
-        setId("vector-root");
-        setPadding(new Insets(12));
-        setBackground(AppTheme.pageBackground());
+    public DotProductView() {
+        setPadding(new Insets(18));
+        setStyle("-fx-background-color: transparent;");
 
-        Button backButton = new Button("Back to overview");
-        backButton.getStyleClass().add("vector-button");
-        backButton.setOnAction(event -> onBack.run());
+        Label heading = new Label("Dot product");
+        heading.setFont(AppTheme.cardTitleFont());
+        heading.setStyle(VectorSimulationLayout.toolHeadingStyle());
 
-        Label title = new Label("Dot Product");
-        title.setId("vector-title");
+        Label intro = new Label("Compute the scalar product of two vectors and explore the angle between them.");
+        intro.setWrapText(true);
+        intro.setStyle("-fx-font-size: 12px; -fx-text-fill: #6b7280; -fx-font-weight: 600;");
 
-        Label subtitle = new Label("Compute the scalar product of two vectors and explore the angle between them.");
-        subtitle.setId("vector-subtitle");
-        subtitle.setWrapText(true);
+        resultLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #075985;");
+        angleLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #075985;");
 
-        VBox introCard = new VBox(8, title, subtitle);
-        introCard.getStyleClass().add("vector-card");
-
-        VBox controlsCard = new VBox(12);
-        controlsCard.getStyleClass().add("vector-card");
-        controlsCard.setPadding(new Insets(18));
-
-        Label controlsTitle = new Label("Vector controls");
-        controlsTitle.setId("vector-card-title");
-
-        controlsCard.getChildren().addAll(
-                controlsTitle,
+        VBox controls = new VBox(10,
+                heading,
+                intro,
                 buildSliderRow("Vector 1 magnitude", firstMagnitude),
-                buildSliderRow("Vector 1 angle", firstAngle),
+                buildSliderRow("Vector 1 angle (°)", firstAngle),
                 buildSliderRow("Vector 2 magnitude", secondMagnitude),
-                buildSliderRow("Vector 2 angle", secondAngle),
+                buildSliderRow("Vector 2 angle (°)", secondAngle),
                 resultLabel,
                 angleLabel);
-
-        VBox canvasCard = new VBox(12);
-        canvasCard.getStyleClass().add("vector-card");
-        canvasCard.setPadding(new Insets(18));
-
-        Label canvasTitle = new Label("Dot product diagram");
-        canvasTitle.setId("vector-card-title");
-        vectorCanvas.getStyleClass().add("vector-canvas");
-        canvasCard.getChildren().addAll(canvasTitle, vectorCanvas);
-
-        HBox content = new HBox(18, controlsCard, canvasCard);
-        content.setAlignment(Pos.TOP_LEFT);
-
-        VBox root = new VBox(16, backButton, introCard, content);
-        root.setPadding(new Insets(8));
-        setCenter(root);
+        VectorSimulationLayout.setCanvasAndControls(this, vectorCanvas, controls);
 
         bindListeners();
         updateDiagram();
     }
 
-    private HBox buildSliderRow(String labelText, Slider slider) {
+    private VBox buildSliderRow(String labelText, Slider slider) {
         Label label = new Label(labelText);
-        label.setId("vector-control-label");
+        label.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0369a1;");
         Label valueLabel = new Label(String.format("%.0f", slider.getValue()));
-        valueLabel.setId("vector-control-value");
-        slider.valueProperty().addListener((obs, oldValue, newValue) -> valueLabel.setText(String.format("%.0f", newValue.doubleValue())));
-
-        VBox sliderBox = new VBox(6, label, slider, valueLabel);
-        sliderBox.setPadding(new Insets(4, 0, 4, 0));
-        return new HBox(sliderBox);
+        valueLabel.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #075985;");
+        slider.setShowTickMarks(true);
+        slider.setShowTickLabels(true);
+        slider.valueProperty().addListener((obs, oldValue, newValue) ->
+                valueLabel.setText(String.format("%.0f", newValue.doubleValue())));
+        return new VBox(4, label, slider, valueLabel);
     }
 
     private void bindListeners() {
@@ -127,8 +98,8 @@ public class DotProductView extends BorderPane {
         double height = vectorCanvas.getHeight();
 
         gc.clearRect(0, 0, width, height);
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, width, height);
+        gc.setFill(Color.web("#f8fafc"));
+        gc.fillRoundRect(8, 8, width - 16, height - 16, 12, 12);
 
         gc.setStroke(Color.web("#d9e2ee"));
         gc.setLineWidth(1);
